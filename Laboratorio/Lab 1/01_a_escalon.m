@@ -1,11 +1,6 @@
 % Vector tiempo
 t = linspace(-5,5,1001);
 
-% Escalón unitario
-function y = u(t)
-  y = (t >= 0);
-end
-
 % Escalón sobre el origen
 u1 = u(t);
 
@@ -54,4 +49,8 @@ xline(0)
 % derecha (se atrasa); cuando se le suma, se desplaza hacia la izquierda
 % (se adelanta).
 
+% Escalón unitario
+function y = u(t)
+y = (t >= 0);
+end
 
