@@ -1,60 +1,30 @@
-% Vector tiempo
-t = linspace(-4,4)
+% 01_b_rampa.m
+% Señal rampa y transformaciones temporales.
 
-% Funcion Rampa
-function y = u(t)
-  y = (t >= 0);
-end
+clear; close all; clc;
 
-function y = r(t)
-  y = t.*u(t)
-end
+t = linspace(-4, 4, 2001);
+r1 = t .* double(t >= 0);
+r2 = (t - 2) .* double(t - 2 >= 0);
+r3 = (-t - 2) .* double(-t - 2 >= 0);
 
-% Rampa sobre el orígen
-r1 = r(t)
+figure('Name', 'Rampas');
 
-% Rampa desplazada dos unidades a la derecha
-r2 = r(t-2)
+subplot(3, 1, 1);
+plot(t, r1, 'r', 'LineWidth', 2); grid on; ylim([-1 5]);
+title('Rampa r(t)'); xlabel('Tiempo t (s)'); ylabel('Amplitud');
 
-% Rampa desplazada dos unidades a la izquierda
-r3 = r(-t-2)
+subplot(3, 1, 2);
+plot(t, r2, 'b', 'LineWidth', 2); grid on; ylim([-1 5]);
+title('Rampa desplazada r(t - 2)'); xlabel('Tiempo t (s)'); ylabel('Amplitud');
 
-% r(t)
-subplot(3,1,1)
-plot(t, r1, 'r', 'LineWidth', 2)
-xlabel("Tiempo t")
-ylabel("r(t)")
-title("Rampa r(t)")
-grid on
-ylim([-1 5])
-yline(0)
-xline(0)
+subplot(3, 1, 3);
+plot(t, r3, 'm', 'LineWidth', 2); grid on; ylim([-1 5]);
+title('Rampa reflejada y desplazada r(-t - 2)'); xlabel('Tiempo t (s)'); ylabel('Amplitud');
 
-% r(t-2)
-subplot(3,1,2)
-plot(t, r3, 'b', 'LineWidth', 2)
-xlabel("Tiempo t")
-ylabel("r(t-2)")
-title("Rampa r(t-2)")
-grid on
-ylim([-1 5])
-yline(0)
-xline(0)
-
-% r(-t-2)
-subplot(3,1,3)
-plot(t, r2, 'm', 'LineWidth', 2)
-xlabel("Tiempo t")
-ylabel("r(-t-2)")
-title("Rampa r(-t-2)")
-grid on
-ylim([-1 5])
-yline(0)
-xline(0)
-
-%{
-1) Al momento de realizar un desplazamiento bajo un valor dado, este se da para toda la grafica, desplazando
-   TODOS los puntos de la misma, incluidos aquellos en los que su valor es 0.
-2) Porque al multiplicar el argumento por un signo - estamos realizando una reflexión sobre
-   el eje y.
-%}
+% Respuestas:
+% 1) r(t - 2) vale (t - 2)u(t - 2). Al sustituir t por t - 2 se desplazan
+%    tanto la recta como el escalón; por eso la señal comienza en t = 2.
+% 2) En r(-t - 2), el signo negativo multiplica todo el argumento y produce
+%    una reflexión temporal. Después, el término -2 sitúa el quiebre en t=-2,
+%    por lo que no equivale al desplazamiento de r(t - 2).
