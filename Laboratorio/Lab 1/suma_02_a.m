@@ -55,3 +55,24 @@ function y = u(t)
 y =(t >= 0)
 
 end
+
+
+%{
+1)El valor de y(t=5) es 0.Esto se debe a que en ese instante las 3 señales se
+activan. Por tanto, u(5)=1 ; u(3)=1 ; u(1)=1 y al ser reemplazados dentro
+de la ecuación: y(5)= 1 + 2(1) - 3(1)=0. Anulandose entre ellas.
+
+2)Para obtener el valor de y cuando t=5 en Matlab se busca dentro del
+vector t el elemento que corresponda a dicho instante y utilizar su
+posición para consultar el valor de y, usando:
+
+[~, indice] = min(abs(t - 5));
+valor_y = y(indice);
+
+(min(t-5)= busca la menor diferencia respecto al valor 
+~ = no almacena nada)
+
+Así, se encuentra el instante más cercano a t=5 y muestra el valor
+correspondiente a la señal
+
+%} 
