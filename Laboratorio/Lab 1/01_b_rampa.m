@@ -1,30 +1,61 @@
-% 01_b_rampa.m
-% Señal rampa y transformaciones temporales.
+% Vector tiempo
+t = linspace(-4,4,1001);
 
-clear; close all; clc;
+% Rampa sobre el orígen
+r1 = r(t);
 
-t = linspace(-4, 4, 2001);
-r1 = t .* double(t >= 0);
-r2 = (t - 2) .* double(t - 2 >= 0);
-r3 = (-t - 2) .* double(-t - 2 >= 0);
+% Rampa desplazada dos unidades a la derecha
+r2 = r(t-2);
 
-figure('Name', 'Rampas');
+% Rampa desplazada dos unidades a la izquierda
+r3 = r(-t-2);
 
-subplot(3, 1, 1);
-plot(t, r1, 'r', 'LineWidth', 2); grid on; ylim([-1 5]);
-title('Rampa r(t)'); xlabel('Tiempo t (s)'); ylabel('Amplitud');
+% r(t)
+subplot(3,1,1)
+plot(t, r1, 'r', 'LineWidth', 2)
+xlabel("Tiempo t")
+ylabel("r(t)")
+title("Rampa r(t)")
+grid on
+ylim([-1 5])
+yline(0)
+xline(0)
 
-subplot(3, 1, 2);
-plot(t, r2, 'b', 'LineWidth', 2); grid on; ylim([-1 5]);
-title('Rampa desplazada r(t - 2)'); xlabel('Tiempo t (s)'); ylabel('Amplitud');
+% r(t-2)
+subplot(3,1,2)
+plot(t, r2, 'b', 'LineWidth', 2)
+xlabel("Tiempo t")
+ylabel("r(t-2)")
+title("Rampa r(t-2)")
+grid on
+ylim([-1 5])
+yline(0)
+xline(0)
 
-subplot(3, 1, 3);
-plot(t, r3, 'm', 'LineWidth', 2); grid on; ylim([-1 5]);
-title('Rampa reflejada y desplazada r(-t - 2)'); xlabel('Tiempo t (s)'); ylabel('Amplitud');
+% r(-t-2)
+subplot(3,1,3)
+plot(t, r3, 'm', 'LineWidth', 2)
+xlabel("Tiempo t")
+ylabel("r(-t-2)")
+title("Rampa r(-t-2)")
+grid on
+ylim([-1 5])
+yline(0)
+xline(0)
 
-% Respuestas:
-% 1) r(t - 2) vale (t - 2)u(t - 2). Al sustituir t por t - 2 se desplazan
-%    tanto la recta como el escalón; por eso la señal comienza en t = 2.
-% 2) En r(-t - 2), el signo negativo multiplica todo el argumento y produce
-%    una reflexión temporal. Después, el término -2 sitúa el quiebre en t=-2,
-%    por lo que no equivale al desplazamiento de r(t - 2).
+%{
+1) r(t-2) = (t-2)u(t-2): el escalon se activa en t = 2. Por ello, la region
+   donde la rampa es diferente de cero tambien se desplaza y queda para t >= 2.
+2) En r(-t-2) el signo negativo de t genera una reflexion temporal. Por eso no
+   es un desplazamiento simple: la rampa queda activa hacia la izquierda, para t <= -2.
+%}
+
+% Escalón unitario
+function y = u(t)
+  y = (t >= 0);
+end
+
+% Funcion rampa
+function y = r(t)
+  y = t.*u(t);
+end
