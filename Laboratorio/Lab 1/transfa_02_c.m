@@ -15,7 +15,7 @@ end
 %señal y(t)
 y = A*f;
 
-% Determinar el título según el valor de A
+
 if A > 1
     texto = "Amplificación sin reflexión";
 
