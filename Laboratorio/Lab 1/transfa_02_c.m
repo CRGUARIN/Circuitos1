@@ -45,7 +45,7 @@ xlabel("Tiempo t")
 ylabel("f(t)")
 title("Señal original f(t) = sin(2*pi*t)")
 grid on
-ylim([-1.5 1.5])
+ylim([-2.5 2.5])
 xlim([0 2])
 yline(0,'k--')
 
@@ -56,6 +56,6 @@ xlabel("Tiempo t")
 ylabel("y(t)")
 title(texto)
 grid on
-ylim([-1.5 1.5])
+ylim([-2.5 2.5])
 xlim([0 2])
 yline(0,'k--')

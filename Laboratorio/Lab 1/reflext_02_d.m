@@ -2,20 +2,7 @@
 t = linspace(-2, 2);
 
 
-% función escalón
-function y = u(t)
-y = (t >= 0)
-
-end
-
-% función f(t)
-function y = f(t)
-y = exp(-t) .* u(t)
-
-end
-
 % Señales:
-
 f1 = f(t);
 y1 = f(-t);
 
@@ -39,6 +26,19 @@ title('Señal y(t) = f(-t)')
 grid on
 ylim([-0.5 1.5])
 yline(0, 'k--')
+
+
+% función escalón
+function y = u(t)
+y = (t >= 0)
+
+end
+
+% función f(t)
+function y = f(t)
+y = exp(-t) .* u(t)
+
+end
 
 %{
 La reflexión temporal de una exponencial causal deja de ser causal porque,
