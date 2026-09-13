@@ -1,0 +1,177 @@
+\documentclass[conference,10pt]{IEEEtran}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{amsmath}
+\usepackage{circuitikz}
+\usepackage{xcolor}
+\newcommand{\pendiente}[1]{\textcolor{red}{\textit{[Completar: #1]}}}
+\newcommand{\paralelo}{\mathbin{\|}}
+
+\title{Preinforme: Circuitos Resistivos -- Parte 1\\Práctica de Laboratorio No. 2}
+\author{\IEEEauthorblockN{\pendiente{Nombre completo 1}, \pendiente{Nombre completo 2}}
+\IEEEauthorblockA{Ingeniería Electrónica y de Telecomunicaciones\\
+Circuitos Eléctricos I -- Universidad de Antioquia\\2026-2\\
+\pendiente{Correos institucionales}}}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+Este preinforme presenta la preparación para la Práctica de Laboratorio No. 2,
+\emph{Circuitos Resistivos -- Parte 1}. Se documentan los componentes
+seleccionados, la consulta sobre transformaciones delta--estrella y
+estrella--delta, y el cálculo del resistor equivalente y la corriente de una
+fuente de $5\,\mathrm{V}$ en tres circuitos resistivos.
+\end{abstract}
+\begin{IEEEkeywords}
+Ley de Ohm, resistores, serie, paralelo, delta--estrella, estrella--delta.
+\end{IEEEkeywords}
+
+\section{Objetivos}
+\begin{itemize}
+  \item Realizar el montaje de circuitos resistivos en serie, paralelo y mixtos.
+  \item Verificar la Ley de Ohm y la simplificación de circuitos mediante
+  conexiones serie/paralelo y transformaciones delta--estrella.
+\end{itemize}
+
+\section{Componentes y valores seleccionados}
+Se llevará una protoboard, cables de conexión, multímetro, fuente de voltaje y
+cinco resistores comerciales diferentes entre $330\,\Omega$ y
+$4.7\,\mathrm{k}\Omega$. La fuente se ajustará a $5\,\mathrm{V}$.
+\begin{table}[!t]
+\caption{Resistores seleccionados para el laboratorio}
+\label{tab:resistores}
+\centering
+\begin{tabular}{ccc}
+\hline
+Resistor & Valor nominal & Valor medido \\
+\hline
+$R_a$ & \pendiente{} & \pendiente{} \\
+$R_b$ & \pendiente{} & \pendiente{} \\
+$R_c$ & \pendiente{} & \pendiente{} \\
+$R_d$ & \pendiente{} & \pendiente{} \\
+$R_e$ & \pendiente{} & \pendiente{} \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Consulta: transformaciones delta--estrella y estrella--delta}
+Las transformaciones delta--estrella y estrella--delta sustituyen una red de
+tres resistores por otra red equivalente vista desde los mismos tres
+terminales. Se emplean cuando un circuito no puede reducirse solo mediante
+asociaciones en serie o paralelo. En la transformación delta--estrella, cada
+resistor de la estrella es el producto de los dos resistores delta que llegan
+al mismo terminal, dividido entre la suma de los tres resistores delta. En la
+transformación inversa, cada resistor delta es la suma de los productos de dos
+resistores estrella divididos por el resistor estrella opuesto. Ambas redes
+preservan la resistencia equivalente entre cualquier par de terminales
+\cite{sadiku}.
+
+\subsection{Ecuaciones de transformación}
+Para una delta con resistores $R_{ab}$, $R_{bc}$ y $R_{ca}$, defina
+\begin{equation}
+R_\Delta=R_{ab}+R_{bc}+R_{ca}.
+\end{equation}
+La estrella equivalente se obtiene con
+\begin{align}
+R_a&=\frac{R_{ab}R_{ca}}{R_\Delta}, &
+R_b&=\frac{R_{ab}R_{bc}}{R_\Delta}, &
+R_c&=\frac{R_{bc}R_{ca}}{R_\Delta}.
+\end{align}
+Para una estrella con resistores $R_a$, $R_b$ y $R_c$, las resistencias delta
+equivalentes son
+\begin{align}
+R_{ab}&=R_a+R_b+\frac{R_aR_b}{R_c},\\
+R_{bc}&=R_b+R_c+\frac{R_bR_c}{R_a},\\
+R_{ca}&=R_c+R_a+\frac{R_cR_a}{R_b}.
+\end{align}
+
+\section{Cálculos previos}
+En los tres casos se toma $v_s=5\,\mathrm{V}$. Reemplace los campos pendientes
+por los valores nominales escogidos y muestre el desarrollo algebraico antes
+de registrar cada resultado.
+
+\subsection{Circuito en paralelo}
+\begin{figure}[!t]
+\centering
+\begin{circuitikz}[american voltages]
+\draw (0,0) to[battery1,l=$v_s$] (0,2.6) -- (5.4,2.6) -- (5.4,0) -- (0,0);
+\draw (1.4,2.6) to[R,l=$R_a$] (1.4,0);
+\draw (2.7,2.6) to[R,l=$R_b$] (2.7,0);
+\draw (4.0,2.6) to[R,l=$R_c$] (4.0,0);
+\draw[-latex] (0.35,2.3) -- (1.0,2.3) node[midway,above] {$i$};
+\end{circuitikz}
+\caption{Circuito resistivo en paralelo (Figura 2 de la guía).}
+\label{fig:paralelo}
+\end{figure}
+\begin{align}
+R_{\mathrm{eq}1}&=\left(\frac{1}{R_a}+\frac{1}{R_b}+\frac{1}{R_c}\right)^{-1},&
+i&=\frac{v_s}{R_{\mathrm{eq}1}}.
+\end{align}
+\noindent\textbf{Resultado:}\quad
+$R_{\mathrm{eq}1}=\pendiente{}$,\quad $i=\pendiente{}$.
+
+\subsection{Circuito en serie}
+\begin{figure}[!t]
+\centering
+\begin{circuitikz}[american voltages]
+\draw (0,0) to[battery1,l=$v_s$] (0,2.2)
+to[R,l=$R_a$] (2.0,2.2) to[R,l=$R_b$] (4.0,2.2)
+to[R,l=$R_c$] (6.0,2.2) -- (6.0,0) -- (0,0);
+\draw[-latex] (0.35,1.9) -- (0.95,1.9) node[midway,above] {$i$};
+\end{circuitikz}
+\caption{Circuito resistivo en serie (Figura 3 de la guía).}
+\label{fig:serie}
+\end{figure}
+\begin{align}
+R_{\mathrm{eq}2}&=R_a+R_b+R_c,& i&=\frac{v_s}{R_{\mathrm{eq}2}}.
+\end{align}
+\noindent\textbf{Resultado:}\quad
+$R_{\mathrm{eq}2}=\pendiente{}$,\quad $i=\pendiente{}$.
+
+\subsection{Circuito que requiere transformación delta--estrella}
+\begin{figure}[!t]
+\centering
+\begin{circuitikz}[american voltages]
+\draw (0,0) to[battery1,l=$v_s$] (0,4.1) -- (4.4,4.1) -- (4.4,0) -- (0,0);
+\draw (1.5,4.1) to[R,l=$R_a$] (1.5,2.05) to[R,l=$R_d$] (1.5,0);
+\draw (3.2,4.1) to[R,l=$R_b$] (3.2,2.05) to[R,l=$R_e$] (3.2,0);
+\draw (1.5,2.05) to[R,l=$R_c$] (3.2,2.05);
+\draw[-latex] (0.35,3.75) -- (0.95,3.75) node[midway,above] {$i$};
+\end{circuitikz}
+\caption{Puente resistivo que requiere una transformación (Figura 4 de la guía).}
+\label{fig:deltaestrella}
+\end{figure}
+La delta formada por $R_a$, $R_b$ y $R_c$ se transforma en una estrella:
+\begin{align}
+R_T&=\frac{R_aR_b}{R_a+R_b+R_c},\\
+R_L&=\frac{R_aR_c}{R_a+R_b+R_c},\\
+R_R&=\frac{R_bR_c}{R_a+R_b+R_c}.
+\end{align}
+Luego,
+\begin{align}
+R_{\mathrm{eq}3}&=R_T+\left(R_L+R_d\right)\paralelo\left(R_R+R_e\right),&
+i&=\frac{v_s}{R_{\mathrm{eq}3}}.
+\end{align}
+\noindent\textbf{Desarrollo numérico:}\quad
+\pendiente{Sustituir $R_a$ a $R_e$ y mostrar las operaciones.}
+
+\medskip
+\noindent\textbf{Resultado:}\quad
+$R_{\mathrm{eq}3}=\pendiente{}$,\quad $i=\pendiente{}$.
+
+\section{Conclusión preliminar}
+Se espera contrastar los resultados calculados con los valores de simulación y
+las mediciones del montaje. Las diferencias se analizarán considerando la
+tolerancia de los resistores, la precisión del multímetro y las resistencias de
+contacto de la protoboard.
+
+\begin{thebibliography}{1}
+\bibitem{guia}
+Universidad de Antioquia, Práctica de Laboratorio No. 2: Circuitos
+Resistivos -- Parte 1, guía de laboratorio, Circuitos Eléctricos I, 2026-2.
+\bibitem{sadiku}
+C. K. Alexander y M. N. O. Sadiku, \emph{Fundamentals of Electric Circuits},
+5th ed. New York, NY, USA: McGraw-Hill, 2013.
+\end{thebibliography}
+\end{document}
