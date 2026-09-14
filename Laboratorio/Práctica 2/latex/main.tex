@@ -42,8 +42,6 @@ Ley de Ohm, circuitos resistivos, resistencia equivalente, conexiones serie-para
 \end{IEEEkeywords}
 
 \section{Introducción}
-% Contextualice la práctica y su relación con la Ley de Ohm y la simplificación
-% de circuitos resistivos. No incluya aquí resultados ni conclusiones.
 Los circuitos resistivos permiten estudiar la relación entre voltaje, corriente y resistencia. La ley de Ohm describe esta relación y, junto con las asociaciones serie y paralelo, permite determinar el comportamiento eléctrico de una red a partir de sus resistores. La sustitución de grupos de resistores por una resistencia equivalente simplifica el análisis de circuitos de mayor complejidad.
 
 En esta práctica se analizan configuraciones serie, paralelo y mixtas. En la red mixta se emplean las transformaciones delta--estrella y estrella--delta para obtener una configuración que pueda reducirse mediante asociaciones serie-paralelo. El preinforme reúne la consulta teórica, la selección de componentes y los cálculos necesarios para orientar el montaje, la simulación y la verificación experimental posteriores.
@@ -61,13 +59,13 @@ Preparar el análisis de circuitos resistivos en configuraciones serie, paralelo
 \end{itemize}
 
 \section{Componentes y valores seleccionados}
-% La guía solicita protoboard, cables, multímetro, fuente de 5 V y cinco
-% resistores diferentes entre 330 ohm y 4.7 kohm, de 1/4 W o 1/2 W.
 \subsection{Materiales}
 \begin{itemize}
-  \item \completar{Material 1.}
-  \item \completar{Material 2.}
-  \item \completar{Agregar los demás materiales.}
+  \item Protoboard.
+  \item Multímetro.
+  \item Fuente de voltaje (5 V).
+  \item Resistores.
+  \item Cables de conexión.
 \end{itemize}
 
 \subsection{Resistores}
@@ -91,7 +89,6 @@ Preparar el análisis de circuitos resistivos en configuraciones serie, paralelo
 \noindent Valor de la fuente: $v_s=5~\mathrm{V}$.
 
 \section{Consulta: transformaciones delta--estrella y estrella--delta}
-% La explicación solicitada debe ocupar un único párrafo de máximo 150 palabras.
 \subsection{Explicación}
 Una red de tres resistencias conectada en delta puede reemplazarse por una red equivalente en estrella entre los mismos tres terminales, y viceversa. La equivalencia conserva las corrientes y tensiones observables desde los terminales externos. Para la transformación delta--estrella, cada resistencia de la estrella se obtiene como el producto de las dos resistencias delta adyacentes a su terminal, dividido entre la suma de las tres resistencias delta. Para la transformación estrella--delta, cada resistencia delta se obtiene dividiendo la suma de los productos de las resistencias de estrella tomadas de dos en dos entre la resistencia de estrella opuesta al lado calculado. Al transformar la delta de la Figura~\ref{fig:circuito-puente}, $R_1$, $R_2$ y $R_3$ conectan el centro de la estrella con los nodos superior, izquierdo y derecho, respectivamente.
 
@@ -112,7 +109,6 @@ Definiendo $P=R_1R_2+R_2R_3+R_3R_1$, las resistencias delta se recuperan mediant
 \end{align}
 
 \section{Cálculos previos}
-% Muestre todo el procedimiento algebraico. Use los valores de la Tabla I.
 \subsection{Circuito de la Figura 2: conexión en paralelo}
 \setcounter{figure}{1}
 \begin{figure}[H]
@@ -133,22 +129,29 @@ Definiendo $P=R_1R_2+R_2R_3+R_3R_1$, las resistencias delta se recuperan mediant
 
 \subsubsection{Datos}
 \begin{align*}
-  R_a &= \completar{valor}, & R_b &= \completar{valor},\\
-  R_c &= \completar{valor}, & v_s &= \completar{valor}.
+  R_a &= 680~\Omega, & R_b &= 2200~\Omega,\\
+  R_c &= 470~\Omega, & v_s &= 5~\mathrm{V}.
 \end{align*}
 
 \subsubsection{Cálculo del resistor equivalente $R_{\mathrm{eq}1}$}
-\completar{Escribir ecuaciones, sustitución numérica y unidades.}
-\espaciocalculos
+El cálculo de la resistencia equivalente ($R_{\mathrm{eq}1}$) para 3 resistores en paralelo se realiza mediante la suma de sus inversas:
+\begin{equation}
+    \frac{1}{R_{\mathrm{eq}1}} = \frac{1}{R_a} + \frac{1}{R_b} + \frac{1}{R_c} = \frac{1}{680} + \frac{1}{2200} + \frac{1}{470}
+\end{equation}
+\begin{equation}
+    R_{\mathrm{eq}1} = 246.74 \, \Omega
+\end{equation}
 
 \subsubsection{Cálculo de la corriente suministrada por la fuente}
-\completar{Escribir ecuaciones, sustitución numérica y unidades.}
-\espaciolargo
+La corriente suministrada por la fuente se halla mediante la Ley de Ohm:
+\begin{equation}
+    i_1 = \frac{v_s}{R_{\mathrm{eq}1}} = \frac{5~\mathrm{V}}{246.74~\Omega} = 0.02026~\mathrm{A} = 20.26~\mathrm{mA}
+\end{equation}
 
 \noindent\textbf{Resultados:}
 \begin{align*}
-  R_{\mathrm{eq}1} &= \completar{resultado y unidad},\\
-  i_1 &= \completar{resultado y unidad}.
+  R_{\mathrm{eq}1} &= 246.74~\Omega,\\
+  i_1 &= 20.26~\mathrm{mA}.
 \end{align*}
 
 \subsection{Circuito de la Figura 3: conexión en serie}
@@ -170,22 +173,26 @@ Definiendo $P=R_1R_2+R_2R_3+R_3R_1$, las resistencias delta se recuperan mediant
 
 \subsubsection{Datos}
 \begin{align*}
-  R_a &= \completar{valor}, & R_b &= \completar{valor},\\
-  R_c &= \completar{valor}, & v_s &= \completar{valor}.
+  R_a &= 680~\Omega, & R_b &= 2200~\Omega,\\
+  R_c &= 470~\Omega, & v_s &= 5~\mathrm{V}.
 \end{align*}
 
 \subsubsection{Cálculo del resistor equivalente $R_{\mathrm{eq}2}$}
-\completar{Escribir ecuaciones, sustitución numérica y unidades.}
-\espaciocalculos
+El cálculo de la resistencia equivalente ($R_{\mathrm{eq}2}$) para resistores en serie se calcula sumando directamente sus valores:
+\begin{equation}
+    R_{\mathrm{eq}2} = R_a + R_b + R_c = 680~\Omega + 2200~\Omega + 470~\Omega = 3350~\Omega
+\end{equation}
 
 \subsubsection{Cálculo de la corriente suministrada por la fuente}
-\completar{Escribir ecuaciones, sustitución numérica y unidades.}
-\espaciolargo
+La corriente respectiva en el lazo es:
+\begin{equation}
+    i_2 = \frac{v_s}{R_{\mathrm{eq}2}} = \frac{5~\mathrm{V}}{3350~\Omega} = 0.00149~\mathrm{A} = 1.49~\mathrm{mA}
+\end{equation}
 
 \noindent\textbf{Resultados:}
 \begin{align*}
-  R_{\mathrm{eq}2} &= \completar{resultado y unidad},\\
-  i_2 &= \completar{resultado y unidad}.
+  R_{\mathrm{eq}2} &= 3350~\Omega,\\
+  i_2 &= 1.49~\mathrm{mA}.
 \end{align*}
 
 \subsection{Circuito de la Figura 4: red resistiva mixta}
@@ -273,12 +280,11 @@ Aplicando la ley de Ohm al circuito equivalente,
 \end{align*}
 
 \section{Referencias}
-% Sustituya los marcadores por las fuentes que realmente haya consultado.
 \begin{thebibliography}{00}
   \bibitem{guia}
-  \completar{Referencia de la guía de laboratorio en formato IEEE.}
+  Universidad de Antioquia, ``Guía de Práctica de Laboratorio No. 2: Circuitos Resistivos y Ley de Ohm,'' Departamento de Ingeniería Electrónica y de Telecomunicaciones, Medellín, Colombia, 2026.
   \bibitem{texto}
-  \completar{Referencia del libro o fuente usada para la consulta.}
+  C. K. Alexander y M. N. O. Sadiku, \emph{Fundamentos de circuitos eléctricos}, 5.ª ed. México D.F., México: McGraw-Hill Interamericana, 2013.
 \end{thebibliography}
 
 \end{document}
