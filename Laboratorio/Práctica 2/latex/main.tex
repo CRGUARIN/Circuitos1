@@ -7,6 +7,8 @@
 \usepackage{booktabs}
 \usepackage{xcolor}
 \usepackage{float}
+\usepackage[american]{circuitikz}
+\usetikzlibrary{babel}
 
 \definecolor{placeholder}{RGB}{110,110,110}
 \newcommand{\completar}[1]{%
@@ -19,12 +21,12 @@
 Práctica de Laboratorio No. 2}
 
 \author{
-  \IEEEauthorblockN{\completar{nombres completos de los integrantes}}
+  \IEEEauthorblockN{Maria Paula Mejía Vásquez, Cristian Alejandro Guarin Marin}
   \IEEEauthorblockA{
     Ingeniería Electrónica y de Telecomunicaciones\\
     Circuitos Eléctricos I -- Universidad de Antioquia\\
     Periodo 2026-2\\
-    \completar{correos institucionales}
+    paula.mejia3@udea.edu.co, cristian.guarinm@udea.edu.co
   }
 }
 
@@ -32,29 +34,30 @@ Práctica de Laboratorio No. 2}
 \maketitle
 
 \begin{abstract}
-\completar{Redactar un resumen breve del propósito y contenido del preinforme.}
+Este preinforme prepara la práctica de circuitos resistivos y ley de Ohm. Se seleccionan los componentes requeridos y se desarrollan los cálculos previos de la resistencia equivalente y de la corriente suministrada por una fuente de $5~\mathrm{V}$ en circuitos serie, paralelo y mixto. Además, se presenta la consulta sobre las transformaciones delta--estrella y estrella--delta, empleadas para simplificar la red mixta propuesta. Estos elementos sirven de base para el posterior montaje, la simulación y la comparación de los resultados obtenidos en el laboratorio.
 \end{abstract}
 
 \begin{IEEEkeywords}
-\completar{Incluir entre tres y cinco palabras clave.}
+Ley de Ohm, circuitos resistivos, resistencia equivalente, conexiones serie-paralelo, transformación delta--estrella.
 \end{IEEEkeywords}
 
 \section{Introducción}
 % Contextualice la práctica y su relación con la Ley de Ohm y la simplificación
 % de circuitos resistivos. No incluya aquí resultados ni conclusiones.
-\completar{Redactar la introducción.}
-\espaciolargo
+Los circuitos resistivos permiten estudiar la relación entre voltaje, corriente y resistencia. La ley de Ohm describe esta relación y, junto con las asociaciones serie y paralelo, permite determinar el comportamiento eléctrico de una red a partir de sus resistores. La sustitución de grupos de resistores por una resistencia equivalente simplifica el análisis de circuitos de mayor complejidad.
+
+En esta práctica se analizan configuraciones serie, paralelo y mixtas. En la red mixta se emplean las transformaciones delta--estrella y estrella--delta para obtener una configuración que pueda reducirse mediante asociaciones serie-paralelo. El preinforme reúne la consulta teórica, la selección de componentes y los cálculos necesarios para orientar el montaje, la simulación y la verificación experimental posteriores.
 
 \section{Objetivos}
 \subsection{Objetivo general}
-\completar{Escribir el objetivo general.}
-\espaciolargo
+Preparar el análisis de circuitos resistivos en configuraciones serie, paralelo y mixta mediante la ley de Ohm, el cálculo de resistencias equivalentes y las transformaciones delta--estrella y estrella--delta, para su posterior verificación en el laboratorio.
 
 \subsection{Objetivos específicos}
 \begin{itemize}
-  \item \completar{Objetivo específico 1.}
-  \item \completar{Objetivo específico 2.}
-  \item \completar{Agregar otros objetivos, si aplica.}
+  \item Seleccionar los resistores y demás componentes requeridos para los circuitos propuestos, de acuerdo con sus valores nominales y potencia de trabajo.
+  \item Calcular la resistencia equivalente vista por la fuente y la corriente suministrada en las configuraciones serie, paralelo y mixta.
+  \item Aplicar las transformaciones delta--estrella y estrella--delta para simplificar la red resistiva mixta que no puede reducirse directamente mediante asociaciones serie-paralelo.
+  \item Establecer los valores teóricos de referencia para la simulación, el montaje y las mediciones posteriores.
 \end{itemize}
 
 \section{Componentes y valores seleccionados}
@@ -76,40 +79,58 @@ Práctica de Laboratorio No. 2}
     \toprule
     Resistor & Valor nominal & Potencia nominal \\
     \midrule
-    $R_a$ & \completar{valor} & \completar{potencia} \\
-    $R_b$ & \completar{valor} & \completar{potencia} \\
-    $R_c$ & \completar{valor} & \completar{potencia} \\
-    $R_d$ & \completar{valor} & \completar{potencia} \\
-    $R_e$ & \completar{valor} & \completar{potencia} \\
+    $R_a$ & $680~\Omega$ & $1/4~\mathrm{W}$ \\
+    $R_b$ & $2200~\Omega$ & $1/4~\mathrm{W}$ \\
+    $R_c$ & $470~\Omega$ & $1/4~\mathrm{W}$ \\
+    $R_d$ & $1500~\Omega$ & $1/4~\mathrm{W}$ \\
+    $R_e$ & $330~\Omega$ & $1/4~\mathrm{W}$ \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-\noindent Valor de la fuente: $v_s=\completar{valor y unidad}$.
+\noindent Valor de la fuente: $v_s=5~\mathrm{V}$.
 
 \section{Consulta: transformaciones delta--estrella y estrella--delta}
 % La explicación solicitada debe ocupar un único párrafo de máximo 150 palabras.
 \subsection{Explicación}
-\completar{Escribir un párrafo de máximo 150 palabras.}
-\espaciolargo
+Una red de tres resistencias conectada en delta puede reemplazarse por una red equivalente en estrella entre los mismos tres terminales, y viceversa. La equivalencia conserva las corrientes y tensiones observables desde los terminales externos. Para la transformación delta--estrella, cada resistencia de la estrella se obtiene como el producto de las dos resistencias delta adyacentes a su terminal, dividido entre la suma de las tres resistencias delta. Para la transformación estrella--delta, cada resistencia delta se obtiene dividiendo la suma de los productos de las resistencias de estrella tomadas de dos en dos entre la resistencia de estrella opuesta al lado calculado. Al transformar la delta de la Figura~\ref{fig:circuito-puente}, $R_1$, $R_2$ y $R_3$ conectan el centro de la estrella con los nodos superior, izquierdo y derecho, respectivamente.
 
 \subsection{Ecuaciones de transformación delta--estrella}
+Definiendo $S=R_a+R_b+R_c$, y tomando $R_1$, $R_2$ y $R_3$ hacia los nodos superior, izquierdo y derecho, respectivamente,
 \begin{align}
-  \completar{Ecuación 1} \\
-  \completar{Ecuación 2} \\
-  \completar{Ecuación 3}
+  R_1 &= \frac{R_aR_b}{S}, \label{eq:delta-estrella-r1}\\
+  R_2 &= \frac{R_aR_c}{S}, \label{eq:delta-estrella-r2}\\
+  R_3 &= \frac{R_bR_c}{S}. \label{eq:delta-estrella-r3}
 \end{align}
 
 \subsection{Ecuaciones de transformación estrella--delta}
+Definiendo $P=R_1R_2+R_2R_3+R_3R_1$, las resistencias delta se recuperan mediante
 \begin{align}
-  \completar{Ecuación 1} \\
-  \completar{Ecuación 2} \\
-  \completar{Ecuación 3}
+  R_a &= \frac{P}{R_3}, \label{eq:estrella-delta-ra}\\
+  R_b &= \frac{P}{R_2}, \label{eq:estrella-delta-rb}\\
+  R_c &= \frac{P}{R_1}. \label{eq:estrella-delta-rc}
 \end{align}
 
 \section{Cálculos previos}
 % Muestre todo el procedimiento algebraico. Use los valores de la Tabla I.
 \subsection{Circuito de la Figura 2: conexión en paralelo}
+\setcounter{figure}{1}
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}[scale=0.72, transform shape]
+    \draw
+      (0,0) to[battery1,l_=$v_s$] (0,3)
+      -- (5.4,3)
+      (0,0) -- (5.4,0)
+      (1.8,3) to[R,l=$R_a$] (1.8,0)
+      (3.2,3) to[R,l=$R_b$] (3.2,0)
+      (4.6,3) to[R,l=$R_c$] (4.6,0);
+    \draw[->] (0.45,3.35) -- node[above] {$i$} (1.35,3.35);
+  \end{circuitikz}
+  \caption{Elementos circuitales en paralelo.}
+  \label{fig:circuito-paralelo}
+\end{figure}
+
 \subsubsection{Datos}
 \begin{align*}
   R_a &= \completar{valor}, & R_b &= \completar{valor},\\
@@ -131,6 +152,22 @@ Práctica de Laboratorio No. 2}
 \end{align*}
 
 \subsection{Circuito de la Figura 3: conexión en serie}
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}[scale=0.72, transform shape]
+    \draw
+      (0,0) to[battery1,l_=$v_s$] (0,3)
+      to[R,l=$R_a$] (2.2,3)
+      to[R,l=$R_b$] (4.4,3)
+      -- (4.4,0)
+      to[R,l_=$R_c$] (2.2,0)
+      -- (0,0);
+    \draw[->] (1.15,3.45) -- node[above] {$i$} (2.05,3.45);
+  \end{circuitikz}
+  \caption{Elementos circuitales en serie.}
+  \label{fig:circuito-serie}
+\end{figure}
+
 \subsubsection{Datos}
 \begin{align*}
   R_a &= \completar{valor}, & R_b &= \completar{valor},\\
@@ -152,29 +189,87 @@ Práctica de Laboratorio No. 2}
 \end{align*}
 
 \subsection{Circuito de la Figura 4: red resistiva mixta}
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}[scale=0.72, transform shape]
+    \draw
+      (0,0) to[battery1,l_=$v_s$] (0,4)
+      -- (1.7,4)
+      (1.7,4) -- (4.6,4)
+      (1.7,4) to[R,l=$R_a$] (1.7,2)
+      to[R,l=$R_d$] (1.7,0)
+      (4.6,4) to[R,l_=$R_b$] (4.6,2)
+      to[R,l_=$R_e$] (4.6,0)
+      (1.7,2) to[R,l=$R_c$] (4.6,2)
+      (4.6,0) -- (0,0);
+    \draw[->] (0.45,4.35) -- node[above] {$i$} (1.35,4.35);
+  \end{circuitikz}
+  \caption{Circuito que requiere una transformación delta--estrella o viceversa.}
+  \label{fig:circuito-puente}
+\end{figure}
+
 \subsubsection{Datos}
 \begin{align*}
-  R_a &= \completar{valor}, & R_b &= \completar{valor},\\
-  R_c &= \completar{valor}, & R_d &= \completar{valor},\\
-  R_e &= \completar{valor}, & v_s &= \completar{valor}.
+  R_a &= 680~\Omega, & R_b &= 2200~\Omega,\\
+  R_c &= 470~\Omega, & R_d &= 1500~\Omega,\\
+  R_e &= 330~\Omega, & v_s &= 5~\mathrm{V}.
 \end{align*}
 
 \subsubsection{Transformación empleada}
-\completar{Indicar la transformación elegida y justificarla.}
-\espaciolargo
+Se transforma la delta formada por $R_a$, $R_b$ y $R_c$ a una estrella. Así, $R_d$ y $R_e$ quedan en serie con los brazos izquierdo y derecho, respectivamente, y esas dos ramas quedan en paralelo; finalmente, el brazo superior $R_1$ queda en serie con dicha combinación.
+
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}[scale=0.72, transform shape]
+    \draw
+      (0,0) to[battery1,l_=$v_s$] (0,4)
+      -- (0.8,4)
+      to[R,l=$R_1$] (2.5,4)
+      -- (4.8,4)
+      (2.5,4) to[R,l=$R_2$] (2.5,2)
+      to[R,l=$R_d$] (2.5,0)
+      (4.8,4) to[R,l_=$R_3$] (4.8,2)
+      to[R,l_=$R_e$] (4.8,0)
+      -- (0,0);
+    \draw[->] (0.45,4.35) -- node[above] {$i$} (1.25,4.35);
+  \end{circuitikz}
+  \caption{Circuito equivalente después de transformar la delta en estrella.}
+  \label{fig:circuito-puente-equivalente}
+\end{figure}
 
 \subsubsection{Cálculo del resistor equivalente $R_{\mathrm{eq}3}$}
-\completar{Escribir ecuaciones, sustitución, reducción del circuito y unidades.}
-\espaciocalculos
+La suma de las resistencias de la delta es
+\begin{equation}
+  S=R_a+R_b+R_c=680+2200+470=3350~\Omega.
+\end{equation}
+Aplicando las ecuaciones de transformación delta--estrella,
+\begin{align}
+  R_1&=\frac{680\cdot2200}{3350}=446.567~\Omega,\\
+  R_2&=\frac{680\cdot470}{3350}=95.403~\Omega,\\
+  R_3&=\frac{2200\cdot470}{3350}=308.657~\Omega.
+\end{align}
+Por tanto,
+\begin{align}
+  R_2+R_d&=95.403+1500=1595.403~\Omega,\\
+  R_3+R_e&=308.657+330=638.657~\Omega,\\
+  R_{\mathrm{eq}3}
+    &=R_1+\left[(R_2+R_d)\parallel(R_3+R_e)\right] \\
+    &=446.567+\frac{1595.403\cdot638.657}{1595.403+638.657} \\
+    &=902.649~\Omega.
+\end{align}
 
 \subsubsection{Cálculo de la corriente suministrada por la fuente}
-\completar{Escribir ecuaciones, sustitución numérica y unidades.}
-\espaciolargo
+Aplicando la ley de Ohm al circuito equivalente,
+\begin{equation}
+  i_3=\frac{v_s}{R_{\mathrm{eq}3}}
+      =\frac{5~\mathrm{V}}{902.649~\Omega}
+      =5.539~\mathrm{mA}.
+\end{equation}
 
 \noindent\textbf{Resultados:}
 \begin{align*}
-  R_{\mathrm{eq}3} &= \completar{resultado y unidad},\\
-  i_3 &= \completar{resultado y unidad}.
+  R_{\mathrm{eq}3} &= 902.649~\Omega,\\
+  i_3 &= 5.539~\mathrm{mA}.
 \end{align*}
 
 \section{Referencias}
