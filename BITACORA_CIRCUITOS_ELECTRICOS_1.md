@@ -19,15 +19,17 @@ Este archivo conserva el contexto esencial de las conversaciones de estudio del 
 ## Estado actual
 
 - Inicio de la sesión de estudio: 12 de septiembre de 2026.
-- Tema que el estudiante empieza a estudiar: **análisis nodal, supernodos y análisis de mallas**.
-- Aún no se han resuelto ejercicios ni se han registrado dudas específicas.
+- Fecha de última actualización: 14 de septiembre de 2026.
+- Temas estudiados: análisis nodal, sistemas matriciales, supernodos y análisis de mallas.
+- Se resolvieron y verificaron ejercicios de dos nodos, supernodo y tres mallas.
+- Se preparó y compiló el preinforme IEEE de la Práctica 2.
 
 ## Próximos temas de apoyo
 
-1. Análisis nodal: elección de referencia, voltajes nodales y KCL.
-2. Supernodos: fuentes de voltaje entre nodos no de referencia y ecuación de restricción.
-3. Análisis de mallas: corrientes de malla, KVL y resistencias compartidas.
-4. Casos con fuentes de corriente, incluyendo supermallas.
+1. Practicar más ejercicios de análisis nodal y de mallas, con valores escogidos por el estudiante.
+2. Estudiar supermallas: fuente de corriente entre dos mallas, KVL externa y restricción de corriente.
+3. Completar los cálculos numéricos del preinforme con los cinco resistores que se usarán en el laboratorio.
+4. Después de la práctica, ampliar la plantilla del preinforme a informe final con simulación, montaje, mediciones, tablas y conclusiones.
 
 ## Registro de avances y hallazgos
 
@@ -79,3 +81,17 @@ Este archivo conserva el contexto esencial de las conversaciones de estudio del 
 - Consulta delta--estrella y estrella--delta incorporada: un párrafo breve, ecuaciones de ambas transformaciones y el procedimiento simbólico para reducir el puente de la Figura 4.
 - La guía exige fuente de 5 V y cinco resistores diferentes entre 330 Ohm y 4.7 kOhm. Antes de entregar, completar integrantes, valores seleccionados/medidos y cálculos numéricos.
 - PDF compilado y revisado visualmente: Laboratorio/Práctica 2/latex/main.pdf. Tiene dos páginas en formato IEEE, con los diagramas y ecuaciones sin recortes ni advertencias de referencias. La plantilla se ajustó para evitar la dependencia opcional siunitx.
+
+### Organización del repositorio
+
+- Repositorio remoto: github.com/CRGUARIN/Circuitos1.git, rama principal main.
+- El 14 de septiembre de 2026 se subieron todos los cambios existentes en la carpeta, incluidos materiales de teoría, las prácticas 1 y 2, la bitácora y la plantilla LaTeX.
+- Commit publicado: f81544e -- "Añadir materiales y preinforme de circuitos".
+
+## Resumen operativo para retomar el estudio
+
+- Para análisis nodal: elegir tierra, definir voltajes nodales, plantear KCL y usar conductancias. Una fuente de corriente entre nodos modifica el término independiente según su dirección.
+- Para una fuente de voltaje entre dos nodos no de referencia: formar supernodo, escribir KCL alrededor de su contorno y agregar la restricción de voltaje con la polaridad correcta.
+- Para mallas: elegir corrientes de malla, preferiblemente todas horarias; aplicar KVL. En una resistencia compartida por las mallas k y j, usar R(i_k-i_j) para la ecuación de la malla k.
+- Si una corriente calculada es negativa, la ecuación sigue siendo correcta: la corriente física circula en dirección opuesta a la referencia elegida.
+- Para usar la calculadora en sistemas nodales, no mezclar escalas: mS con mA produce voltajes directamente en V; S con A también funciona, pero requiere números más pequeños.
