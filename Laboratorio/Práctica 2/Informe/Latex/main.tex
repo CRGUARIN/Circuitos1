@@ -61,7 +61,7 @@ Verificar experimentalmente la ley de Ohm y la simplificación de circuitos resi
 \section{Materiales y componentes utilizados}
 Para el desarrollo de la práctica se emplearon los siguientes materiales: protoboard, multímetro, fuente de voltaje ajustada a $v_s=5~\mathrm{V}$, cables de conexión y cinco resistores de valores comerciales distintos, seleccionados dentro del rango de $330~\Omega$ a $4.7~\mathrm{k}\Omega$ con potencia de $1/4~\mathrm{W}$.
 
-\begin{figure}[H]
+\begin{figure}[!t]
   \centering
   \includegraphics[width=0.85\linewidth]{resistores.png}
   \caption{Resistores $R_a$ a $R_e$ empleados en la práctica, donde se aprecia el código de colores de cada uno.}
@@ -111,7 +111,7 @@ El desarrollo completo de esta consulta, junto con los cálculos previos de los 
 
 \section{Circuito de la Figura 2: conexión en paralelo}
 \setcounter{figure}{1}
-\begin{figure}[H]
+\begin{figure}[!t]
   \centering
   \begin{circuitikz}[scale=0.72, transform shape]
     \draw
@@ -129,21 +129,21 @@ El desarrollo completo de esta consulta, junto con los cálculos previos de los 
 
 Los tres resistores empleados fueron $R_a=680~\Omega$, $R_b=2200~\Omega$ y $R_c=470~\Omega$, con una fuente $v_s=5~\mathrm{V}$. En el preinforme se calculó $R_{\mathrm{eq}1}=246.74~\Omega$ y $i_1=20.26~\mathrm{mA}$.
 
-\begin{figure}[H]
+\begin{figure}[!t]
   \centering
   \includegraphics[width=\linewidth]{esquematico_fig2.jpeg}
   \caption{Esquemático simulado en LTspice del circuito de la Figura~\ref{fig:circuito-paralelo}: se identifica porque muestra $R_a=680~\Omega$, $R_b=2200~\Omega$ y $R_c=470~\Omega$ conectados en paralelo entre los mismos dos nodos.}
   \label{fig:esquematico-fig2}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!t]
   \centering
   \includegraphics[width=0.85\linewidth]{resultados_fig2.jpeg}
   \caption{Resultados del análisis de punto de operación (.op) para el circuito de la Figura~\ref{fig:circuito-paralelo}: la suma de las tres corrientes de rama ($7.35+2.27+10.64~\mathrm{mA}$) reproduce la corriente total $i=20.26~\mathrm{mA}$ de la fuente, confirmando que corresponde a este circuito.}
   \label{fig:resultados-fig2}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!t]
   \centering
   \includegraphics[width=0.85\linewidth]{montaje_fig2.png}
   \caption{Montaje físico del circuito de la Figura~\ref{fig:circuito-paralelo} en protoboard: los tres resistores quedan uno junto al otro compartiendo el mismo par de rieles, característico de una conexión en paralelo.}
@@ -169,7 +169,7 @@ Los tres resistores empleados fueron $R_a=680~\Omega$, $R_b=2200~\Omega$ y $R_c=
 Los resultados del preinforme y de la simulación coinciden prácticamente de forma exacta ($20.26~\mathrm{mA}$ frente a $20.264~\mathrm{mA}$), ya que la simulación emplea los mismos valores nominales de resistencia usados en el cálculo teórico. El valor medido en el montaje ($R_{\mathrm{eq}1}=242.6~\Omega$) es ligeramente menor que el calculado, lo cual es consistente con que los valores reales medidos de $R_a$, $R_b$ y $R_c$ (Tabla~\ref{tab:medidas-resistencia}) son levemente menores que los nominales. Adicionalmente, el voltaje medido en la fuente durante el montaje ($4.70~\mathrm{V}$) fue inferior al valor nominal de $5~\mathrm{V}$, lo que explica que la corriente medida ($19.1~\mathrm{mA}$) sea menor que la esperada a pesar de la menor resistencia equivalente. En conjunto, los tres resultados concuerdan dentro de un margen razonable, y las diferencias observadas se deben a la tolerancia de los resistores comerciales y a que la fuente no entregó exactamente $5~\mathrm{V}$ durante la medición.
 
 \section{Circuito de la Figura 3: conexión en serie}
-\begin{figure}[H]
+\begin{figure}[!t]
   \centering
   \begin{circuitikz}[scale=0.72, transform shape]
     \draw
@@ -187,21 +187,21 @@ Los resultados del preinforme y de la simulación coinciden prácticamente de fo
 
 Empleando los mismos resistores $R_a=680~\Omega$, $R_b=2200~\Omega$ y $R_c=470~\Omega$ conectados ahora en serie, con $v_s=5~\mathrm{V}$, el preinforme arrojó $R_{\mathrm{eq}2}=3350~\Omega$ e $i_2=1.49~\mathrm{mA}$.
 
-\begin{figure}[H]
+\begin{figure}[!t]
   \centering
   \includegraphics[width=\linewidth]{esquematico_fig3.jpeg}
   \caption{Esquemático simulado en LTspice del circuito de la Figura~\ref{fig:circuito-serie}: se identifica porque muestra $R_a$, $R_b$ y $R_c$ encadenados en un único lazo con la fuente, sin nodos compartidos entre ellos.}
   \label{fig:esquematico-fig3}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!t]
   \centering
   \includegraphics[width=0.85\linewidth]{resultados_fig3.jpeg}
   \caption{Resultados del análisis de punto de operación (.op) para el circuito de la Figura~\ref{fig:circuito-serie}: las cuatro corrientes reportadas ($R_a$, $R_b$, $R_c$ y $v_s$) son iguales entre sí ($1.49254~\mathrm{mA}$), como corresponde a una malla en serie.}
   \label{fig:resultados-fig3}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!t]
   \centering
   \includegraphics[width=0.85\linewidth]{montaje_fig3.png}
   \caption{Montaje físico del circuito de la Figura~\ref{fig:circuito-serie} en protoboard: los tres resistores quedan encadenados uno a continuación del otro en una misma columna, característico de una conexión en serie.}
@@ -228,7 +228,7 @@ Al igual que en el circuito paralelo, el preinforme y la simulación prácticame
 
 \section{Circuito de la Figura 4: red resistiva mixta}
 \label{sec:figura4}
-\begin{figure}[H]
+\begin{figure}[!t]
   \centering
   \begin{circuitikz}[scale=0.72, transform shape]
     \draw
@@ -249,21 +249,21 @@ Al igual que en el circuito paralelo, el preinforme y la simulación prácticame
 
 Para este circuito se emplearon los cinco resistores disponibles: $R_a=680~\Omega$, $R_b=2200~\Omega$, $R_c=470~\Omega$, $R_d=1500~\Omega$ y $R_e=330~\Omega$, con $v_s=5~\mathrm{V}$. Transformando la delta formada por $R_a$, $R_b$ y $R_c$ en su estrella equivalente ($R_1=446.567~\Omega$, $R_2=95.403~\Omega$, $R_3=308.657~\Omega$), el preinforme obtuvo $R_{\mathrm{eq}3}=902.649~\Omega$ e $i_3=5.539~\mathrm{mA}$.
 
-\begin{figure}[H]
+\begin{figure}[!t]
   \centering
   \includegraphics[width=\linewidth]{esquematico_fig4.png}
   \caption{Esquemático simulado en LTspice del circuito de la Figura~\ref{fig:circuito-puente}: se identifica por ser el único de los tres que emplea los cinco resistores ($R_a$ a $R_e$) en la topología de puente.}
   \label{fig:esquematico-fig4}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!t]
   \centering
   \includegraphics[width=0.85\linewidth]{resultados_fig4.png}
   \caption{Resultados del análisis de punto de operación (.op) para el circuito de la Figura~\ref{fig:circuito-puente}: reporta las cinco corrientes de rama ($R_a$ a $R_e$) y tres tensiones de nodo, y $|I(v_s)|=5.539~\mathrm{mA}$ coincide con el $i_3$ calculado en el preinforme, confirmando la correspondencia con este circuito.}
   \label{fig:resultados-fig4}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!t]
   \centering
   \includegraphics[width=0.85\linewidth]{montaje_fig4.png}
   \caption{Montaje físico del circuito de la Figura~\ref{fig:circuito-puente} en protoboard: es el único montaje con los cinco resistores y varios cables adicionales formando la topología de puente.}

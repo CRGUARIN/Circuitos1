@@ -1,6 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1789883088.10675 "/home/crguarin/Documentos/Universidad de Antioquia/2026-2/Circuitos Eléctricos 1/Laboratorio/Práctica 2/Informe/Latex/main.tex" "main.pdf" "main" 1789883089.09974 0
-  "/home/crguarin/Documentos/Universidad de Antioquia/2026-2/Circuitos Eléctricos 1/Laboratorio/Práctica 2/Informe/Latex/main.tex" 1789883049.27145 19361 c673c39416b16db6aa5d006063c7d090 ""
+["pdflatex"] 1789884756.48052 "main.tex" "main.pdf" "main" 1789884757.51662 0
   "/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc" 1775415801 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm" 1775415801 2172 fd0c924230362ff848a33632ed45dc23 ""
   "/usr/share/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm" 1775415801 4524 6bce29db5bc272ba5f332261583fee9c ""
@@ -191,8 +190,8 @@
   "img/resultados_fig2.jpeg" 1789881743.02887 55638 a0f7d1d699a9ff0f1862056e24b52392 ""
   "img/resultados_fig3.jpeg" 1789881743.03287 73680 58247c0dbec788b7da92100afb1f9695 ""
   "img/resultados_fig4.png" 1789881725.17339 5305 53b94474c47f4d8017c8f0d55ea0ad0f ""
-  "main.aux" 1789883089.04956 6884 09c76bcb0c0cc5801c6124e1482f3a6c "pdflatex"
-  "main.tex" 1789883049.27145 19361 c673c39416b16db6aa5d006063c7d090 ""
+  "main.aux" 1789884757.45131 6884 a5c2cf6e97f2af843592249d88e54a14 "pdflatex"
+  "main.tex" 1789884748.36732 19374 ecf426687c8ca321a17f6f5550152b26 ""
   (generated)
   "main.aux"
   "main.log"

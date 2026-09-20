@@ -1,7 +1,7 @@
 PWD /home/crguarin/Documentos/Universidad de Antioquia/2026-2/Circuitos Eléctricos 1/Laboratorio/Práctica 2/Informe/Latex
 INPUT /usr/share/texmf-dist/web2c/texmf.cnf
 INPUT /var/lib/texmf/web2c/pdftex/pdflatex.fmt
-INPUT /home/crguarin/Documentos/Universidad de Antioquia/2026-2/Circuitos Eléctricos 1/Laboratorio/Práctica 2/Informe/Latex/main.tex
+INPUT main.tex
 OUTPUT main.log
 INPUT /usr/share/texmf-dist/tex/latex/ieeetran/IEEEtran.cls
 INPUT /usr/share/texmf-dist/tex/latex/ieeetran/IEEEtran.cls
