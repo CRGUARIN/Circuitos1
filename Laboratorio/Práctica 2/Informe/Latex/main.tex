@@ -14,11 +14,6 @@
 
 \graphicspath{{img/}}
 
-\definecolor{placeholder}{RGB}{110,110,110}
-\newcommand{\completar}[1]{%
-  \ifmmode\text{\color{placeholder}\itshape[Completar: #1]}%
-  \else\textcolor{placeholder}{\textit{[Completar: #1]}}\fi}
-
 \title{Informe: Circuitos Resistivos y Ley de Ohm\\
 Práctica de Laboratorio No. 2}
 
@@ -36,7 +31,7 @@ Práctica de Laboratorio No. 2}
 \maketitle
 
 \begin{abstract}
-Este informe presenta el desarrollo de la Práctica de Laboratorio No. 2, en la que se verifican de manera experimental la ley de Ohm y las técnicas de simplificación de circuitos resistivos (serie, paralelo y transformación delta--estrella). Se comparan los resultados obtenidos en el preinforme, en la simulación con LTspice y en el montaje físico en protoboard para tres circuitos: una conexión puramente paralela, una puramente serie y una red mixta que requiere una transformación delta--estrella. Los tres conjuntos de resultados presentan una concordancia adecuada, con diferencias atribuibles principalmente a la tolerancia de los resistores comerciales y a la resistencia de contacto introducida por el montaje.
+Este informe presenta el desarrollo de la Práctica de Laboratorio No. 2, en la que se verifican de manera experimental la ley de Ohm y las técnicas de simplificación de circuitos resistivos (serie, paralelo y transformación delta--estrella). Se calculan en primer lugar la resistencia equivalente y la corriente suministrada por la fuente para tres circuitos --una conexión puramente paralela, una puramente serie y una red mixta tipo puente-- y se comparan dichos resultados con los obtenidos mediante simulación en LTspice y con las mediciones tomadas sobre el montaje físico en protoboard. Los tres conjuntos de resultados presentan una concordancia adecuada, con diferencias atribuibles principalmente a la tolerancia de los resistores comerciales, a la resistencia de contacto introducida por el montaje y, en el circuito mixto, al mayor número de conexiones requeridas.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -44,7 +39,7 @@ Ley de Ohm, circuitos resistivos, resistencia equivalente, conexiones serie-para
 \end{IEEEkeywords}
 
 \section{Introducción}
-La ley de Ohm y las reglas de asociación de resistores en serie y en paralelo permiten predecir el comportamiento de una red resistiva a partir de los valores nominales de sus componentes. Sin embargo, los valores reales de los resistores comerciales, las condiciones de la fuente de alimentación y la calidad de las conexiones en el montaje físico introducen diferencias respecto a los valores calculados teóricamente. En esta práctica dichas diferencias se cuantifican comparando tres etapas de un mismo análisis: el cálculo previo (preinforme), la simulación en LTspice y la medición directa sobre el montaje en protoboard, para tres circuitos de complejidad creciente.
+La ley de Ohm y las reglas de asociación de resistores en serie y en paralelo permiten predecir el comportamiento de una red resistiva a partir de los valores nominales de sus componentes. Sin embargo, los valores reales de los resistores comerciales, las condiciones de la fuente de alimentación y la calidad de las conexiones en el montaje físico introducen diferencias respecto a los valores calculados teóricamente. En esta práctica dichas diferencias se cuantifican comparando tres etapas de un mismo análisis: el cálculo previo, la simulación en LTspice y la medición directa sobre el montaje en protoboard, para tres circuitos de complejidad creciente: uno en paralelo, uno en serie y uno mixto que requiere una transformación delta--estrella.
 
 \section{Objetivos}
 \subsection{Objetivo general}
@@ -53,51 +48,54 @@ Verificar experimentalmente la ley de Ohm y la simplificación de circuitos resi
 \subsection{Objetivos específicos}
 \begin{itemize}
   \item Medir con el multímetro los valores reales de los resistores empleados y compararlos con sus valores nominales.
-  \item Simular en LTspice los tres circuitos propuestos y obtener la corriente y el voltaje suministrados por la fuente mediante un análisis de punto de operación (.op).
+  \item Calcular, mediante asociaciones serie-paralelo y la transformación delta--estrella, la resistencia equivalente y la corriente suministrada por la fuente en los tres circuitos propuestos.
+  \item Simular en LTspice los tres circuitos y obtener la corriente y el voltaje suministrados por la fuente mediante un análisis de punto de operación (.op).
   \item Realizar el montaje físico de los tres circuitos en protoboard y medir la resistencia equivalente, el voltaje y la corriente de cada uno.
-  \item Comparar los resultados de preinforme, simulación y montaje, e identificar las causas de las diferencias encontradas.
+  \item Comparar los resultados calculados, simulados y medidos, e identificar las causas de las diferencias encontradas.
 \end{itemize}
 
 \section{Materiales y componentes utilizados}
-Para el desarrollo de la práctica se emplearon los siguientes materiales: protoboard, multímetro, fuente de voltaje ajustada a $v_s=5~\mathrm{V}$, cables de conexión y cinco resistores de valores comerciales distintos, seleccionados dentro del rango de $330~\Omega$ a $4.7~\mathrm{k}\Omega$ con potencia de $1/4~\mathrm{W}$.
+Para el desarrollo de la práctica se emplearon los siguientes materiales: protoboard, multímetro, fuente de voltaje ajustada a $v_s=5~\mathrm{V}$, cables de conexión y cinco resistores de valores comerciales distintos, seleccionados dentro del rango de $330~\Omega$ a $4.7~\mathrm{k}\Omega$ con potencia de $1/4~\mathrm{W}$: $R_a=680~\Omega$, $R_b=2200~\Omega$, $R_c=470~\Omega$, $R_d=1500~\Omega$ y $R_e=330~\Omega$.
 
-\begin{figure}[!t]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.85\linewidth]{resistores.png}
   \caption{Resistores $R_a$ a $R_e$ empleados en la práctica, donde se aprecia el código de colores de cada uno.}
   \label{fig:resistores}
 \end{figure}
 
-La Tabla~\ref{tab:medidas-resistencia} presenta el valor nominal de cada resistor, el valor medido con el multímetro antes del montaje de los circuitos, y el rango de valores esperado según su código de colores.
+La Tabla~\ref{tab:medidas-resistencia} presenta el valor nominal de cada resistor, su tolerancia, el rango de valores esperado según el código de colores, el valor medido con el multímetro antes del montaje de los circuitos y la desviación respecto al valor nominal.
 
 \begin{table}[H]
   \caption{Tabla Valores Medidos de Resistencia}
   \label{tab:medidas-resistencia}
   \centering
   \resizebox{\linewidth}{!}{%
-  \begin{tabular}{cccccc}
+  \begin{tabular}{ccccc}
     \toprule
-    Resistor & Nominal ($\Omega$) & Medido ($\Omega$) & Tolerancia & Rango esperado ($\Omega$) & Dentro de rango \\
+    Resistor & Nominal & Rango esperado & Medido & Desviación \\
     \midrule
-    $R_a$ & $680$  & $666$  & $1\,\%$ & $[673.2,\ 686.8]$   & No (\,$-1.06\,\%$\,) \\
-    $R_b$ & $2200$ & $2137$ & $1\,\%$ & $[2178,\ 2222]$      & No (\,$-2.86\,\%$\,) \\
-    $R_c$ & $470$  & $462$  & $5\,\%$ & $[446.5,\ 493.5]$    & Sí \\
-    $R_d$ & $1500$ & $1500$ & $5\,\%$ & $[1425,\ 1575]$      & Sí \\
-    $R_e$ & $330$  & $330$  & $1\,\%$ & $[326.7,\ 333.3]$    & Sí \\
+    $R_a$ & $680~\Omega$ ($1\,\%$)  & $[673.2,\ 686.8]~\Omega$ & $666~\Omega$  & $-2.06\,\%$ \\
+    $R_b$ & $2200~\Omega$ ($1\,\%$) & $[2178,\ 2222]~\Omega$   & $2137~\Omega$ & $-2.86\,\%$ \\
+    $R_c$ & $470~\Omega$ ($5\,\%$)  & $[446.5,\ 493.5]~\Omega$ & $462~\Omega$  & $-1.70\,\%$ \\
+    $R_d$ & $1500~\Omega$ ($5\,\%$) & $[1425,\ 1575]~\Omega$   & $1500~\Omega$ & $0.00\,\%$ \\
+    $R_e$ & $330~\Omega$ ($1\,\%$)  & $[326.7,\ 333.3]~\Omega$ & $330~\Omega$  & $0.00\,\%$ \\
     \bottomrule
   \end{tabular}}
 \end{table}
 
-\noindent Las tolerancias de la tabla corresponden a las anotadas en las mediciones de laboratorio (banda de tolerancia leída sobre cada resistor). Los resistores $R_c$, $R_d$ y $R_e$ midieron dentro de su rango nominal $\pm$ tolerancia. Los resistores $R_a$ y $R_b$, en cambio, midieron por debajo del límite inferior de su banda de $1\,\%$ (por $7.6~\Omega$ y $41~\Omega$, respectivamente); dado que ambos son resistores de precisión ($1\,\%$), esta pequeña desviación sugiere un error de calibración del multímetro empleado o una ligera deriva del valor del resistor, más que un defecto de fabricación, y no compromete el resto del análisis.
+\noindent Los resistores $R_c$, $R_d$ y $R_e$ midieron dentro de su banda de tolerancia nominal. Los resistores $R_a$ y $R_b$, ambos de precisión ($1\,\%$), midieron levemente por debajo del límite inferior de su rango ($7.2~\Omega$ y $41~\Omega$ respectivamente); dado que la desviación es pequeña y de $1$ a $3\,\%$, se atribuye a un ligero error de calibración del multímetro empleado o a una deriva menor del valor real del resistor, y no compromete el resto del análisis.
 
 \section{Transformación delta--estrella y estrella--delta}
-Una red de tres resistencias conectada en delta puede reemplazarse por una red equivalente en estrella entre los mismos tres terminales, y viceversa, conservando las corrientes y tensiones observables desde los terminales externos. Esta transformación se empleó para simplificar el circuito mixto de la Figura~\ref{fig:circuito-puente} (Sección~\ref{sec:figura4}), transformando la delta formada por $R_a$, $R_b$ y $R_c$ en su estrella equivalente.
+\label{sec:transformacion}
+Una red de tres resistencias conectada en delta puede reemplazarse por una red equivalente en estrella entre los mismos tres terminales, y viceversa, conservando las corrientes y tensiones observables desde los terminales externos. Para la transformación delta--estrella, cada resistencia de la estrella se obtiene como el producto de las dos resistencias delta adyacentes a su terminal, dividido entre la suma de las tres resistencias delta. Para la transformación estrella--delta, cada resistencia delta se obtiene dividiendo la suma de los productos de las resistencias de estrella tomadas de dos en dos entre la resistencia de estrella opuesta al lado calculado. Esta transformación se empleó para simplificar el circuito mixto de la Figura~\ref{fig:circuito-puente} (Sección~\ref{sec:figura4}), transformando la delta formada por $R_a$, $R_b$ y $R_c$ en su estrella equivalente.
 
 Definiendo $S=R_a+R_b+R_c$, con $R_1$, $R_2$ y $R_3$ los brazos de la estrella hacia los nodos superior, izquierdo y derecho, respectivamente,
 \begin{align}
   R_1 &= \frac{R_aR_b}{S}, &
   R_2 &= \frac{R_aR_c}{S}, &
   R_3 &= \frac{R_bR_c}{S}.
+  \label{eq:delta-estrella}
 \end{align}
 
 De forma análoga, definiendo $P=R_1R_2+R_2R_3+R_3R_1$, la transformación estrella--delta está dada por
@@ -105,13 +103,13 @@ De forma análoga, definiendo $P=R_1R_2+R_2R_3+R_3R_1$, la transformación estre
   R_a &= \frac{P}{R_3}, &
   R_b &= \frac{P}{R_2}, &
   R_c &= \frac{P}{R_1}.
+  \label{eq:estrella-delta}
 \end{align}
 
-El desarrollo completo de esta consulta, junto con los cálculos previos de los tres circuitos, se presentó en el preinforme de esta práctica.
-
 \section{Circuito de la Figura 2: conexión en paralelo}
+\label{sec:figura2}
 \setcounter{figure}{1}
-\begin{figure}[!t]
+\begin{figure}[H]
   \centering
   \begin{circuitikz}[scale=0.72, transform shape]
     \draw
@@ -127,23 +125,36 @@ El desarrollo completo de esta consulta, junto con los cálculos previos de los 
   \label{fig:circuito-paralelo}
 \end{figure}
 
-Los tres resistores empleados fueron $R_a=680~\Omega$, $R_b=2200~\Omega$ y $R_c=470~\Omega$, con una fuente $v_s=5~\mathrm{V}$. En el preinforme se calculó $R_{\mathrm{eq}1}=246.74~\Omega$ y $i_1=20.26~\mathrm{mA}$.
+Los tres resistores empleados fueron $R_a=680~\Omega$, $R_b=2200~\Omega$ y $R_c=470~\Omega$, con una fuente $v_s=5~\mathrm{V}$.
 
-\begin{figure}[!t]
+\subsection{Cálculo previo}
+El resistor equivalente vista desde la fuente se obtiene mediante la suma de inversas propia de una conexión en paralelo:
+\begin{equation}
+    \frac{1}{R_{\mathrm{eq}1}} = \frac{1}{R_a} + \frac{1}{R_b} + \frac{1}{R_c} = \frac{1}{680} + \frac{1}{2200} + \frac{1}{470},
+\end{equation}
+\begin{equation}
+    R_{\mathrm{eq}1} = 246.74~\Omega.
+\end{equation}
+Aplicando la ley de Ohm, la corriente suministrada por la fuente es
+\begin{equation}
+    i_1 = \frac{v_s}{R_{\mathrm{eq}1}} = \frac{5~\mathrm{V}}{246.74~\Omega} = 20.26~\mathrm{mA}.
+\end{equation}
+
+\begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{esquematico_fig2.jpeg}
-  \caption{Esquemático simulado en LTspice del circuito de la Figura~\ref{fig:circuito-paralelo}: se identifica porque muestra $R_a=680~\Omega$, $R_b=2200~\Omega$ y $R_c=470~\Omega$ conectados en paralelo entre los mismos dos nodos.}
+  \includegraphics[width=\linewidth]{esquematico_fig2.png}
+  \caption{Esquemático simulado en LTspice del circuito de la Figura~\ref{fig:circuito-paralelo}: $R_a=680~\Omega$, $R_b=2200~\Omega$ y $R_c=470~\Omega$ conectados en paralelo entre los mismos dos nodos, con $v_s=5~\mathrm{V}$.}
   \label{fig:esquematico-fig2}
 \end{figure}
 
-\begin{figure}[!t]
+\begin{figure}[H]
   \centering
-  \includegraphics[width=0.85\linewidth]{resultados_fig2.jpeg}
-  \caption{Resultados del análisis de punto de operación (.op) para el circuito de la Figura~\ref{fig:circuito-paralelo}: la suma de las tres corrientes de rama ($7.35+2.27+10.64~\mathrm{mA}$) reproduce la corriente total $i=20.26~\mathrm{mA}$ de la fuente, confirmando que corresponde a este circuito.}
+  \includegraphics[width=0.85\linewidth]{resultados_fig2.png}
+  \caption{Resultados del análisis de punto de operación (.op) para el circuito de la Figura~\ref{fig:circuito-paralelo}: la suma de las tres corrientes de rama ($7.35+2.27+10.64~\mathrm{mA}$) reproduce la corriente total $i=20.26~\mathrm{mA}$ entregada por la fuente.}
   \label{fig:resultados-fig2}
 \end{figure}
 
-\begin{figure}[!t]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.85\linewidth]{montaje_fig2.png}
   \caption{Montaje físico del circuito de la Figura~\ref{fig:circuito-paralelo} en protoboard: los tres resistores quedan uno junto al otro compartiendo el mismo par de rieles, característico de una conexión en paralelo.}
@@ -157,7 +168,7 @@ Los tres resistores empleados fueron $R_a=680~\Omega$, $R_b=2200~\Omega$ y $R_c=
   \resizebox{\linewidth}{!}{%
   \begin{tabular}{ccc|cc|ccc}
     \toprule
-    \multicolumn{3}{c|}{Preinforme} & \multicolumn{2}{c|}{Simulación} & \multicolumn{3}{c}{Montaje} \\
+    \multicolumn{3}{c|}{Cálculo previo} & \multicolumn{2}{c|}{Simulación} & \multicolumn{3}{c}{Montaje} \\
     $R_{\mathrm{eq}1}$ ($\Omega$) & $v_s$ (V) & $i$ (mA) & $v_s$ (V) & $i$ (mA) & $R_{\mathrm{eq}1}$ ($\Omega$) & $v_s$ (V) & $i$ (mA) \\
     \midrule
     246.74 & 5.00 & 20.26 & 5.00 & 20.264 & 242.60 & 4.70 & 19.10 \\
@@ -166,10 +177,11 @@ Los tres resistores empleados fueron $R_a=680~\Omega$, $R_b=2200~\Omega$ y $R_c=
 \end{table}
 
 \subsection*{Conclusiones}
-Los resultados del preinforme y de la simulación coinciden prácticamente de forma exacta ($20.26~\mathrm{mA}$ frente a $20.264~\mathrm{mA}$), ya que la simulación emplea los mismos valores nominales de resistencia usados en el cálculo teórico. El valor medido en el montaje ($R_{\mathrm{eq}1}=242.6~\Omega$) es ligeramente menor que el calculado, lo cual es consistente con que los valores reales medidos de $R_a$, $R_b$ y $R_c$ (Tabla~\ref{tab:medidas-resistencia}) son levemente menores que los nominales. Adicionalmente, el voltaje medido en la fuente durante el montaje ($4.70~\mathrm{V}$) fue inferior al valor nominal de $5~\mathrm{V}$, lo que explica que la corriente medida ($19.1~\mathrm{mA}$) sea menor que la esperada a pesar de la menor resistencia equivalente. En conjunto, los tres resultados concuerdan dentro de un margen razonable, y las diferencias observadas se deben a la tolerancia de los resistores comerciales y a que la fuente no entregó exactamente $5~\mathrm{V}$ durante la medición.
+El cálculo previo y la simulación coinciden prácticamente de forma exacta ($20.26~\mathrm{mA}$ frente a $20.264~\mathrm{mA}$), ya que la simulación emplea los mismos valores nominales de resistencia usados en el cálculo teórico. El valor medido en el montaje ($R_{\mathrm{eq}1}=242.6~\Omega$) es ligeramente menor que el calculado, lo cual es consistente con que los valores reales medidos de $R_a$, $R_b$ y $R_c$ (Tabla~\ref{tab:medidas-resistencia}) son levemente menores que los nominales. Adicionalmente, el voltaje medido en la fuente durante el montaje ($4.70~\mathrm{V}$) fue inferior al valor nominal de $5~\mathrm{V}$, lo que explica que la corriente medida ($19.1~\mathrm{mA}$) sea menor que la esperada a pesar de la menor resistencia equivalente. En conjunto, los tres resultados concuerdan dentro de un margen razonable, y las diferencias observadas se deben a la tolerancia de los resistores comerciales y a que la fuente no entregó exactamente $5~\mathrm{V}$ durante la medición.
 
 \section{Circuito de la Figura 3: conexión en serie}
-\begin{figure}[!t]
+\label{sec:figura3}
+\begin{figure}[H]
   \centering
   \begin{circuitikz}[scale=0.72, transform shape]
     \draw
@@ -185,23 +197,33 @@ Los resultados del preinforme y de la simulación coinciden prácticamente de fo
   \label{fig:circuito-serie}
 \end{figure}
 
-Empleando los mismos resistores $R_a=680~\Omega$, $R_b=2200~\Omega$ y $R_c=470~\Omega$ conectados ahora en serie, con $v_s=5~\mathrm{V}$, el preinforme arrojó $R_{\mathrm{eq}2}=3350~\Omega$ e $i_2=1.49~\mathrm{mA}$.
+Empleando los mismos resistores $R_a=680~\Omega$, $R_b=2200~\Omega$ y $R_c=470~\Omega$ conectados ahora en serie, con $v_s=5~\mathrm{V}$.
 
-\begin{figure}[!t]
+\subsection{Cálculo previo}
+El resistor equivalente vista desde la fuente se obtiene sumando directamente los tres resistores en serie:
+\begin{equation}
+    R_{\mathrm{eq}2} = R_a + R_b + R_c = 680 + 2200 + 470 = 3350~\Omega.
+\end{equation}
+Aplicando la ley de Ohm, la corriente en el lazo es
+\begin{equation}
+    i_2 = \frac{v_s}{R_{\mathrm{eq}2}} = \frac{5~\mathrm{V}}{3350~\Omega} = 1.49~\mathrm{mA}.
+\end{equation}
+
+\begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{esquematico_fig3.jpeg}
-  \caption{Esquemático simulado en LTspice del circuito de la Figura~\ref{fig:circuito-serie}: se identifica porque muestra $R_a$, $R_b$ y $R_c$ encadenados en un único lazo con la fuente, sin nodos compartidos entre ellos.}
+  \includegraphics[width=\linewidth]{esquematico_fig3.png}
+  \caption{Esquemático simulado en LTspice del circuito de la Figura~\ref{fig:circuito-serie}: $R_a$, $R_b$ y $R_c$ encadenados en un único lazo con la fuente, sin nodos compartidos entre ellos.}
   \label{fig:esquematico-fig3}
 \end{figure}
 
-\begin{figure}[!t]
+\begin{figure}[H]
   \centering
-  \includegraphics[width=0.85\linewidth]{resultados_fig3.jpeg}
+  \includegraphics[width=0.85\linewidth]{resultados_fig3.png}
   \caption{Resultados del análisis de punto de operación (.op) para el circuito de la Figura~\ref{fig:circuito-serie}: las cuatro corrientes reportadas ($R_a$, $R_b$, $R_c$ y $v_s$) son iguales entre sí ($1.49254~\mathrm{mA}$), como corresponde a una malla en serie.}
   \label{fig:resultados-fig3}
 \end{figure}
 
-\begin{figure}[!t]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.85\linewidth]{montaje_fig3.png}
   \caption{Montaje físico del circuito de la Figura~\ref{fig:circuito-serie} en protoboard: los tres resistores quedan encadenados uno a continuación del otro en una misma columna, característico de una conexión en serie.}
@@ -215,7 +237,7 @@ Empleando los mismos resistores $R_a=680~\Omega$, $R_b=2200~\Omega$ y $R_c=470~\
   \resizebox{\linewidth}{!}{%
   \begin{tabular}{ccc|cc|ccc}
     \toprule
-    \multicolumn{3}{c|}{Preinforme} & \multicolumn{2}{c|}{Simulación} & \multicolumn{3}{c}{Montaje} \\
+    \multicolumn{3}{c|}{Cálculo previo} & \multicolumn{2}{c|}{Simulación} & \multicolumn{3}{c}{Montaje} \\
     $R_{\mathrm{eq}2}$ ($\Omega$) & $v_s$ (V) & $i$ (mA) & $v_s$ (V) & $i$ (mA) & $R_{\mathrm{eq}2}$ ($\Omega$) & $v_s$ (V) & $i$ (mA) \\
     \midrule
     3350.00 & 5.00 & 1.49 & 5.00 & 1.493 & 3270.00 & 4.97 & 1.49 \\
@@ -224,11 +246,11 @@ Empleando los mismos resistores $R_a=680~\Omega$, $R_b=2200~\Omega$ y $R_c=470~\
 \end{table}
 
 \subsection*{Conclusiones}
-Al igual que en el circuito paralelo, el preinforme y la simulación prácticamente coinciden ($1.49~\mathrm{mA}$ frente a $1.493~\mathrm{mA}$). En el montaje, la resistencia equivalente medida ($3270~\Omega$) resultó levemente menor que la nominal ($3350~\Omega$), y el voltaje de la fuente ($4.97~\mathrm{V}$) también estuvo por debajo del valor ideal. Sin embargo, ambos efectos se compensan parcialmente: al ser una configuración en serie, la corriente medida ($1.49~\mathrm{mA}$) resultó prácticamente idéntica a la calculada y simulada. Esto confirma que, para esta configuración, la ley de Ohm predice adecuadamente el comportamiento del circuito y que las pequeñas variaciones en los valores reales de los resistores y en el voltaje de la fuente no afectan significativamente el resultado final.
+Al igual que en el circuito paralelo, el cálculo previo y la simulación prácticamente coinciden ($1.49~\mathrm{mA}$ frente a $1.493~\mathrm{mA}$). En el montaje, la resistencia equivalente medida ($3270~\Omega$) resultó levemente menor que la nominal ($3350~\Omega$), y el voltaje de la fuente ($4.97~\mathrm{V}$) también estuvo por debajo del valor ideal. Sin embargo, ambos efectos se compensan parcialmente: al ser una configuración en serie, la corriente medida ($1.49~\mathrm{mA}$) resultó prácticamente idéntica a la calculada y simulada. Esto confirma que, para esta configuración, la ley de Ohm predice adecuadamente el comportamiento del circuito y que las pequeñas variaciones en los valores reales de los resistores y en el voltaje de la fuente no afectan significativamente el resultado final.
 
 \section{Circuito de la Figura 4: red resistiva mixta}
 \label{sec:figura4}
-\begin{figure}[!t]
+\begin{figure}[H]
   \centering
   \begin{circuitikz}[scale=0.72, transform shape]
     \draw
@@ -247,23 +269,70 @@ Al igual que en el circuito paralelo, el preinforme y la simulación prácticame
   \label{fig:circuito-puente}
 \end{figure}
 
-Para este circuito se emplearon los cinco resistores disponibles: $R_a=680~\Omega$, $R_b=2200~\Omega$, $R_c=470~\Omega$, $R_d=1500~\Omega$ y $R_e=330~\Omega$, con $v_s=5~\mathrm{V}$. Transformando la delta formada por $R_a$, $R_b$ y $R_c$ en su estrella equivalente ($R_1=446.567~\Omega$, $R_2=95.403~\Omega$, $R_3=308.657~\Omega$), el preinforme obtuvo $R_{\mathrm{eq}3}=902.649~\Omega$ e $i_3=5.539~\mathrm{mA}$.
+Para este circuito se emplearon los cinco resistores disponibles: $R_a=680~\Omega$, $R_b=2200~\Omega$, $R_c=470~\Omega$, $R_d=1500~\Omega$ y $R_e=330~\Omega$, con $v_s=5~\mathrm{V}$. Los resistores $R_a$, $R_b$ y $R_c$ forman una delta que no puede reducirse directamente mediante asociaciones serie-paralelo, por lo que se aplica la transformación de la Sección~\ref{sec:transformacion}.
 
-\begin{figure}[!t]
+\subsection{Cálculo previo}
+La suma de las resistencias de la delta es
+\begin{equation}
+  S=R_a+R_b+R_c=680+2200+470=3350~\Omega.
+\end{equation}
+Aplicando las ecuaciones~\eqref{eq:delta-estrella} de transformación delta--estrella,
+\begin{align}
+  R_1&=\frac{680\cdot2200}{3350}=446.567~\Omega,\\
+  R_2&=\frac{680\cdot470}{3350}=95.403~\Omega,\\
+  R_3&=\frac{2200\cdot470}{3350}=308.657~\Omega.
+\end{align}
+
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}[scale=0.72, transform shape]
+    \draw
+      (0,0) to[battery1,l_=$v_s$] (0,4)
+      -- (0.8,4)
+      to[R,l=$R_1$] (2.5,4)
+      -- (4.8,4)
+      (2.5,4) to[R,l=$R_2$] (2.5,2)
+      to[R,l=$R_d$] (2.5,0)
+      (4.8,4) to[R,l_=$R_3$] (4.8,2)
+      to[R,l_=$R_e$] (4.8,0)
+      -- (0,0);
+    \draw[->] (0.45,4.35) -- node[above] {$i$} (1.25,4.35);
+  \end{circuitikz}
+  \caption{Circuito equivalente después de transformar la delta $R_a$-$R_b$-$R_c$ en su estrella $R_1$-$R_2$-$R_3$.}
+  \label{fig:circuito-puente-equivalente}
+\end{figure}
+
+Con la estrella equivalente, $R_2$ queda en serie con $R_d$ y $R_3$ queda en serie con $R_e$; ambas ramas resultantes quedan en paralelo entre sí, y esa combinación queda en serie con $R_1$:
+\begin{align}
+  R_2+R_d&=95.403+1500=1595.403~\Omega,\\
+  R_3+R_e&=308.657+330=638.657~\Omega,\\
+  R_{\mathrm{eq}3}
+    &=R_1+\left[(R_2+R_d)\parallel(R_3+R_e)\right] \nonumber\\
+    &=446.567+\frac{1595.403\cdot638.657}{1595.403+638.657} \nonumber\\
+    &=902.649~\Omega.
+\end{align}
+Aplicando la ley de Ohm al circuito equivalente,
+\begin{equation}
+  i_3=\frac{v_s}{R_{\mathrm{eq}3}}
+      =\frac{5~\mathrm{V}}{902.649~\Omega}
+      =5.539~\mathrm{mA}.
+\end{equation}
+
+\begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{esquematico_fig4.png}
-  \caption{Esquemático simulado en LTspice del circuito de la Figura~\ref{fig:circuito-puente}: se identifica por ser el único de los tres que emplea los cinco resistores ($R_a$ a $R_e$) en la topología de puente.}
+  \caption{Esquemático simulado en LTspice del circuito de la Figura~\ref{fig:circuito-puente}: es el único de los tres que emplea los cinco resistores ($R_a$ a $R_e$) en la topología de puente.}
   \label{fig:esquematico-fig4}
 \end{figure}
 
-\begin{figure}[!t]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.85\linewidth]{resultados_fig4.png}
-  \caption{Resultados del análisis de punto de operación (.op) para el circuito de la Figura~\ref{fig:circuito-puente}: reporta las cinco corrientes de rama ($R_a$ a $R_e$) y tres tensiones de nodo, y $|I(v_s)|=5.539~\mathrm{mA}$ coincide con el $i_3$ calculado en el preinforme, confirmando la correspondencia con este circuito.}
+  \caption{Resultados del análisis de punto de operación (.op) para el circuito de la Figura~\ref{fig:circuito-puente}: reporta las cinco corrientes de rama ($R_a$ a $R_e$) y tres tensiones de nodo, y $|I(v_s)|=5.539~\mathrm{mA}$ coincide con el $i_3$ calculado.}
   \label{fig:resultados-fig4}
 \end{figure}
 
-\begin{figure}[!t]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.85\linewidth]{montaje_fig4.png}
   \caption{Montaje físico del circuito de la Figura~\ref{fig:circuito-puente} en protoboard: es el único montaje con los cinco resistores y varios cables adicionales formando la topología de puente.}
@@ -277,7 +346,7 @@ Para este circuito se emplearon los cinco resistores disponibles: $R_a=680~\Omeg
   \resizebox{\linewidth}{!}{%
   \begin{tabular}{ccc|cc|ccc}
     \toprule
-    \multicolumn{3}{c|}{Preinforme} & \multicolumn{2}{c|}{Simulación} & \multicolumn{3}{c}{Montaje} \\
+    \multicolumn{3}{c|}{Cálculo previo} & \multicolumn{2}{c|}{Simulación} & \multicolumn{3}{c}{Montaje} \\
     $R_{\mathrm{eq}3}$ ($\Omega$) & $v_s$ (V) & $i$ (mA) & $v_s$ (V) & $i$ (mA) & $R_{\mathrm{eq}3}$ ($\Omega$) & $v_s$ (V) & $i$ (mA) \\
     \midrule
     902.65 & 5.00 & 5.539 & 5.00 & 5.539 & 1187.00 & 4.99 & 4.18 \\
@@ -286,12 +355,11 @@ Para este circuito se emplearon los cinco resistores disponibles: $R_a=680~\Omeg
 \end{table}
 
 \subsection*{Conclusiones}
-La simulación reprodujo casi exactamente el resultado del preinforme ($5.539~\mathrm{mA}$ en ambos casos), lo que valida tanto el cálculo manual de la transformación delta--estrella como el modelo simulado en LTspice. En contraste, el montaje físico mostró la mayor discrepancia de los tres circuitos analizados: la resistencia equivalente medida ($1187~\Omega$) fue notablemente mayor que la calculada y simulada ($902.65~\Omega$), y la corriente medida ($4.18~\mathrm{mA}$) resultó proporcionalmente menor que la esperada ($5.539~\mathrm{mA}$). Esta diferencia, mayor que la observada en los circuitos serie y paralelo, se atribuye a que la red mixta involucra cinco resistores y un mayor número de conexiones en la protoboard, lo que aumenta la probabilidad de resistencia de contacto adicional en los puntos de unión y de pequeños errores de montaje; el efecto acumulado de las tolerancias individuales de los cinco resistores también es mayor en una red de este tamaño que en las configuraciones más simples. Adicionalmente, en la Figura~\ref{fig:montaje-fig4} se observa que este montaje requirió varios cables adicionales tipo jumper cruzados entre los resistores para formar la topología de puente, en lugar de las conexiones planas que recomienda la guía (Figura 1); estas conexiones adicionales son una fuente probable de resistencia de contacto extra y podrían explicar buena parte de la diferencia observada frente al valor calculado y simulado.
+La simulación reprodujo casi exactamente el resultado del cálculo previo ($5.539~\mathrm{mA}$ en ambos casos), lo que valida tanto el cálculo manual de la transformación delta--estrella como el modelo simulado en LTspice. En contraste, el montaje físico mostró la mayor discrepancia de los tres circuitos analizados: la resistencia equivalente medida ($1187~\Omega$) fue notablemente mayor que la calculada y simulada ($902.65~\Omega$), y la corriente medida ($4.18~\mathrm{mA}$) resultó proporcionalmente menor que la esperada ($5.539~\mathrm{mA}$). Esta diferencia, mayor que la observada en los circuitos serie y paralelo, se atribuye a que la red mixta involucra cinco resistores y un mayor número de conexiones en la protoboard, lo que aumenta la probabilidad de resistencia de contacto adicional en los puntos de unión; el efecto acumulado de las tolerancias individuales de los cinco resistores también es mayor en una red de este tamaño que en las configuraciones más simples. Adicionalmente, en la Figura~\ref{fig:montaje-fig4} se observa que este montaje requirió varios cables adicionales cruzados entre los resistores para formar la topología de puente, en lugar de las conexiones planas recomendadas en la guía; estas conexiones adicionales son una fuente probable de resistencia de contacto extra y podrían explicar buena parte de la diferencia observada frente al valor calculado y simulado.
 
 \section{Conclusiones generales}
-En los tres circuitos analizados, los resultados del preinforme y de la simulación en LTspice coincidieron de forma prácticamente exacta, lo que confirma que los cálculos manuales de resistencia equivalente y corriente --incluida la transformación delta--estrella aplicada al circuito mixto-- fueron correctos. Los resultados del montaje físico concordaron razonablemente bien con los valores teóricos en los circuitos serie y paralelo, con diferencias inferiores al $10\,\%$, explicadas por la tolerancia de los resistores comerciales y por variaciones menores en el voltaje entregado por la fuente. La mayor diferencia se presentó en el circuito mixto de la Figura~\ref{fig:circuito-puente}, donde la mayor cantidad de resistores y conexiones incrementó el efecto de la resistencia de contacto y de las tolerancias acumuladas. En general, se verificó de manera experimental la validez de la ley de Ohm y de las técnicas de simplificación de circuitos resistivos serie, paralelo y delta--estrella estudiadas en el curso teórico.
+En los tres circuitos analizados, los resultados del cálculo previo y de la simulación en LTspice coincidieron de forma prácticamente exacta, lo que confirma que los cálculos manuales de resistencia equivalente y corriente --incluida la transformación delta--estrella aplicada al circuito mixto-- fueron correctos. Los resultados del montaje físico concordaron razonablemente bien con los valores teóricos en los circuitos serie y paralelo, con diferencias inferiores al $10\,\%$, explicadas por la tolerancia de los resistores comerciales y por variaciones menores en el voltaje entregado por la fuente. La mayor diferencia se presentó en el circuito mixto de la Figura~\ref{fig:circuito-puente}, donde la mayor cantidad de resistores y conexiones incrementó el efecto de la resistencia de contacto y de las tolerancias acumuladas. En general, se verificó de manera experimental la validez de la ley de Ohm y de las técnicas de simplificación de circuitos resistivos serie, paralelo y delta--estrella estudiadas en el curso teórico.
 
-\section{Referencias}
 \begin{thebibliography}{00}
   \bibitem{guia}
   Universidad de Antioquia, ``Guía de Práctica de Laboratorio No. 2: Circuitos Resistivos y Ley de Ohm,'' Departamento de Ingeniería Electrónica y de Telecomunicaciones, Medellín, Colombia, 2026.
