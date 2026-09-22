@@ -1,0 +1,170 @@
+\documentclass[conference,10pt]{IEEEtran}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[american]{circuitikz}
+\usetikzlibrary{babel}
+
+\definecolor{placeholder}{RGB}{110,110,110}
+\newcommand{\completar}[1]{%
+  \ifmmode\text{\color{placeholder}\itshape[Completar: #1]}%
+  \else\textcolor{placeholder}{\textit{[Completar: #1]}}\fi}
+\newcommand{\espaciolargo}{\par\vspace{1.5cm}}
+\newcommand{\espaciocalculos}{\par\vspace{3.2cm}}
+
+\title{Preinforme: Circuitos Resistivos - Parte 2\\
+Práctica de Laboratorio No. 3}
+
+\author{
+  \IEEEauthorblockN{Maria Paula Mejía Vásquez, Cristian Alejandro Guarin Marin}
+  \IEEEauthorblockA{
+    Ingeniería Electrónica y de Telecomunicaciones\\
+    Circuitos Eléctricos I -- Universidad de Antioquia\\
+    Periodo 2026-2\\
+    paula.mejia3@udea.edu.co, cristian.guarinm@udea.edu.co
+  }
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Este preinforme prepara la práctica de circuitos resistivos (Parte 2), enfocada en la verificación teórica de las Leyes de Kirchhoff de Corriente (LCK) y Voltaje (LVK). Se seleccionan los componentes requeridos y se desarrollan los cálculos teóricos empleando el análisis nodal y el análisis de mallas para un circuito de dos lazos. Los resultados obtenidos permitirán validar matemáticamente el cumplimiento de las leyes de conservación de energía y carga, sirviendo como base de referencia para el posterior montaje físico y la simulación en LTspice.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Leyes de Kirchhoff, análisis nodal, análisis de mallas, circuitos resistivos, simulación.
+\end{IEEEkeywords}
+
+\section{Introducción}
+El análisis sistemático de circuitos eléctricos requiere el dominio de herramientas matemáticas que permitan determinar voltajes y corrientes en cualquier punto de una red. Las Leyes de Kirchhoff, junto con la Ley de Ohm, constituyen el pilar de los métodos de análisis nodal (basado en la LCK) y de mallas (basado en la LVK). 
+
+En esta práctica se analiza teóricamente una configuración resistiva de dos mallas y cuatro nodos. A través del cálculo previo de voltajes nodales y corrientes de lazo, es posible deducir el comportamiento detallado de cada componente, comprobando que la sumatoria de caídas de tensión en trayectorias cerradas es nula y que el flujo neto de corriente en las uniones es cero.
+
+\section{Objetivos}
+\subsection{Objetivo general}
+Analizar de forma matemática un circuito resistivo aplicando las leyes de Kirchhoff de corriente (LCK) y de voltaje (LVK) a través de los métodos de mallas y nodos, estableciendo los valores teóricos previos a la verificación experimental.
+
+\subsection{Objetivos específicos}
+\begin{itemize}
+  \item Seleccionar tres resistores comerciales diferentes en el rango de $680~\Omega$ a $2.2~\mathrm{k}\Omega$ a $1/2~\mathrm{W}$ para el montaje.
+  \item Determinar matemáticamente el voltaje en todos los nodos del circuito empleando análisis nodal con referencia en tierra.
+  \item Hallar las corrientes de malla del circuito planteando las ecuaciones del análisis de lazos.
+  \item Verificar teóricamente el cumplimiento de la LVK en cada malla y de la LCK en cada nodo a partir de los resultados calculados.
+\end{itemize}
+
+\section{Componentes}
+\subsection{Materiales}
+Para el desarrollo de la práctica se emplearán los siguientes elementos:
+\begin{itemize}
+  \item Protoboard y cables de conexión.
+  \item Multímetro.
+  \item Fuente de voltaje dual.
+  \item Resistores comerciales.
+\end{itemize}
+
+\subsection{Valores de los componentes}
+De acuerdo con la guía, se seleccionan tres resistores en el rango solicitado y se establecen los valores de las fuentes.
+
+\begin{table}[H]
+  \caption{Valores nominales de los componentes para el laboratorio}
+  \label{tab:componentes}
+  \centering
+  \resizebox{\columnwidth}{!}{%
+  \begin{tabular}{ccc}
+    \toprule
+    Componente & Valor Nominal & Especificación \\
+    \midrule
+    Resistor $R_1$ & \completar{Valor} $\Omega$ & $1/2~\mathrm{W}$ \\
+    Resistor $R_2$ & \completar{Valor} $\Omega$ & $1/2~\mathrm{W}$ \\
+    Resistor $R_3$ & \completar{Valor} $\Omega$ & $1/2~\mathrm{W}$ \\
+    Fuente $v_1$ & $8~\mathrm{V}$ & Corriente directa \\
+    Fuente $v_2$ & $6~\mathrm{V}$ & Corriente directa \\
+    \bottomrule
+  \end{tabular}%
+  }
+\end{table}
+
+\section{Análisis Teórico y Cálculos (Preinforme)}
+
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}[american, scale=0.8, transform shape]
+    % Nodos inferiores (d)
+    \draw (0,0) -- (6,0) node[pos=0.5, below] {$d$};
+    % Lazo izquierdo
+    \draw (0,0) to[battery1, l=$v_1$, v_<=$8\mathrm{V}$] (0,3) node[above] {$a$};
+    \draw (0,3) to[R, l=$R_1$] (3,3) node[above] {$b$};
+    \draw (3,3) to[R, l=$R_2$] (3,0);
+    % Lazo derecho
+    \draw (3,3) to[battery1, l=$v_2$, v_<=$6\mathrm{V}$] (6,3) node[above] {$c$};
+    \draw (6,3) to[R, l=$R_3$] (6,0);
+    
+    % Corrientes de malla (horario y sin superponerse)
+    \draw[->, red, thick] (1.0, 1.5) arc (180:-90:0.5);
+    \node[red] at (1.5, 1.5) {$i_1$};
+    
+    \draw[->, red, thick] (4.0, 1.5) arc (180:-90:0.5);
+    \node[red] at (4.5, 1.5) {$i_2$};
+  \end{circuitikz}
+  \caption{Circuito para la realización de la práctica.}
+  \label{fig:circuito-practica}
+\end{figure}
+
+\subsection{Tabla de resultados (Punto 2a)}
+En la siguiente tabla se resumen los voltajes y corrientes teóricas halladas mediante el análisis de nodos y mallas que se detallará en las secciones posteriores.
+
+\begin{table}[H]
+  \caption{Voltajes de nodo y corrientes de malla - preinforme}
+  \label{tab:resultados}
+  \centering
+  \resizebox{\columnwidth}{!}{%
+  \begin{tabular}{cccccc}
+    \toprule
+    \multicolumn{4}{c}{Voltajes de nodo (V)} & \multicolumn{2}{c}{Corrientes de malla (mA)} \\
+    \cmidrule(r){1-4} \cmidrule(l){5-6}
+    $v_a$ & $v_b$ & $v_c$ & $v_d$ & $i_1$ & $i_2$ \\
+    \midrule
+    \completar{Va} & \completar{Vb} & \completar{Vc} & 0 & \completar{I1} & \completar{I2} \\
+    \bottomrule
+  \end{tabular}%
+  }
+\end{table}
+
+\subsection{Análisis Nodal (Persona A - Punto 2b)}
+Se determina el voltaje en todos los nodos del circuito ($v_a, v_b, v_c$) asumiendo el nodo $d$ como referencia (tierra, $0~\mathrm{V}$).
+
+\completar{Persona A: Plantear aquí el desarrollo matemático paso a paso con el editor de ecuaciones.}
+\espaciocalculos
+
+\subsection{Análisis de Mallas (Persona B - Punto 2c)}
+Se determinan las corrientes de malla del circuito ($i_1, i_2$) planteando las ecuaciones de lazo correspondientes.
+
+\completar{Persona B: Plantear aquí las ecuaciones de malla paso a paso. Muestra la solución del sistema.}
+\espaciocalculos
+
+\subsection{Comprobación de la Ley de Voltajes (Persona A - Punto 2d)}
+Empleando los voltajes de nodo hallados, se calculan las tensiones en cada componente y se verifica que la suma en cada malla es cero.
+
+\completar{Persona A: Calcular vR1, vR2, etc. a partir de (Va, Vb, Vc). Luego demostrar que la sumatoria en Lazo 1 = 0 y Lazo 2 = 0.}
+\espaciocalculos
+
+\subsection{Comprobación de la Ley de Corrientes (Persona B - Punto 2e)}
+Empleando las corrientes de malla halladas, se calculan las corrientes de cada rama y se verifica que la sumatoria en cada nodo es cero.
+
+\completar{Persona B: Deduzcan las corrientes entrantes y salientes a cada nodo principal a partir de i1 e i2. Demostrar que sumatoria I = 0 en los nodos.}
+\espaciocalculos
+
+\section{Referencias}
+\begin{thebibliography}{00}
+  \bibitem{guia}
+  Universidad de Antioquia, ``Guía de Práctica de Laboratorio No. 3: Circuitos Resistivos - Parte 2,'' Departamento de Ingeniería Electrónica y de Telecomunicaciones, Medellín, Colombia, 2026.
+\end{thebibliography}
+
+\end{document}
