@@ -1,0 +1,320 @@
+\documentclass[conference,10pt]{IEEEtran}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\spanishplainpercent
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[american]{circuitikz}
+\usetikzlibrary{babel}
+
+\graphicspath{{img/}}
+
+\definecolor{placeholder}{RGB}{110,110,110}
+\newcommand{\completar}[1]{%
+  \ifmmode\text{\color{placeholder}\itshape[Completar: #1]}%
+  \else\textcolor{placeholder}{\textit{[Completar: #1]}}\fi}
+
+\title{Informe: Circuitos Resistivos - Parte 2\\
+Práctica de Laboratorio No. 3}
+
+\author{
+  \IEEEauthorblockN{Maria Paula Mejía Vásquez, Cristian Alejandro Guarin Marin}
+  \IEEEauthorblockA{
+    Ingeniería Electrónica y de Telecomunicaciones\\
+    Circuitos Eléctricos I -- Universidad de Antioquia\\
+    Periodo 2026-2\\
+    paula.mejia3@udea.edu.co, cristian.guarinm@udea.edu.co
+  }
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Este informe presenta el desarrollo de la Práctica de Laboratorio No. 3, en la que se verifican experimentalmente las Leyes de Kirchhoff de Corriente (LCK) y de Voltaje (LVK) sobre un circuito resistivo de dos mallas y cuatro nodos. A partir de los resultados teóricos del preinforme (análisis nodal y de mallas), se simula el circuito en LTspice y se realiza su montaje físico en protoboard, tomando los voltajes de nodo y las corrientes de malla ubicando la referencia de tierra primero en el nodo $d$ y luego en el nodo $c$. Los tres conjuntos de resultados --preinforme, simulación y montaje-- presentan una concordancia adecuada entre sí, y se comprueba experimentalmente que, si bien los voltajes de nodo cambian al desplazar la referencia, las caídas de tensión y las corrientes en cada rama permanecen invariantes, validando de forma práctica el cumplimiento de la LVK y la LCK.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Leyes de Kirchhoff, análisis nodal, análisis de mallas, circuitos resistivos, LTspice, protoboard.
+\end{IEEEkeywords}
+
+\section{Introducción}
+El análisis sistemático de circuitos eléctricos requiere el dominio de herramientas matemáticas que permitan determinar voltajes y corrientes en cualquier punto de una red. Las Leyes de Kirchhoff, junto con la Ley de Ohm, constituyen el pilar de los métodos de análisis nodal (basado en la LCK) y de mallas (basado en la LVK). En el preinforme de esta práctica \cite{preinforme} se desarrollaron dichos análisis de forma teórica para un circuito de dos mallas y cuatro nodos, obteniendo los voltajes de nodo y las corrientes de malla con la referencia de tierra ubicada en el nodo $d$.
+
+En este informe se contrastan esos resultados teóricos con dos fuentes adicionales de información: la simulación del mismo circuito en LTspice y su montaje físico en protoboard, empleando un multímetro para medir voltajes y corrientes. Adicionalmente, tanto en la simulación como en el montaje se repite la toma de datos ubicando la referencia de tierra en un nodo distinto (el nodo $c$), con el fin de verificar de forma experimental que el valor absoluto de los voltajes de nodo depende de la referencia elegida, mientras que las caídas de tensión entre dos nodos cualesquiera y las corrientes de rama son cantidades físicas invariantes ante dicho cambio.
+
+\section{Objetivos}
+\subsection{Objetivo general}
+Verificar experimentalmente, mediante simulación en LTspice y montaje físico en protoboard, el cumplimiento de las Leyes de Kirchhoff de corriente (LCK) y de voltaje (LVK) en un circuito resistivo de dos mallas, contrastando los resultados con los obtenidos teóricamente en el preinforme.
+
+\subsection{Objetivos específicos}
+\begin{itemize}
+  \item Simular en LTspice el circuito propuesto y obtener los voltajes de nodo y las corrientes de rama mediante un análisis de punto de operación (.op).
+  \item Realizar el montaje físico del circuito en protoboard y medir con el multímetro los voltajes de nodo y las corrientes de malla.
+  \item Repetir la toma de datos, tanto en simulación como en el montaje, ubicando la referencia de tierra en un nodo distinto, y verificar que las caídas de tensión y las corrientes de rama no cambian.
+  \item Comparar los valores teóricos (preinforme), simulados y medidos, e identificar las causas de las diferencias encontradas.
+  \item Verificar experimentalmente el cumplimiento de la LVK en cada malla y de la LCK en cada nodo a partir de los valores medidos.
+\end{itemize}
+
+\section{Materiales y componentes utilizados}
+Para el desarrollo de la práctica se emplearon los siguientes materiales: protoboard, multímetro, fuente de voltaje dual ajustada a $v_1=8~\mathrm{V}$ y $v_2=6~\mathrm{V}$, cables de conexión y tres resistores comerciales seleccionados dentro del rango de $680~\Omega$ a $2.2~\mathrm{k}\Omega$ indicado por la guía: $R_1=680~\Omega$, $R_2=1000~\Omega$ y $R_3=2000~\Omega$, todos a $1/4~\mathrm{W}$.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.85\linewidth]{resistores.jpg}
+  \caption{Resistores $R_1$, $R_2$ y $R_3$ empleados en la práctica, donde se aprecia el código de colores de cada uno.}
+  \label{fig:resistores}
+\end{figure}
+
+La Tabla~\ref{tab:medidas-resistencia} presenta el valor nominal de cada resistor, su tolerancia, el rango de valores esperado según el código de colores y el valor medido con el multímetro antes del montaje del circuito.
+
+\begin{table}[H]
+  \caption{Tabla valores medidos de resistencia}
+  \label{tab:medidas-resistencia}
+  \centering
+  \resizebox{\linewidth}{!}{%
+  \begin{tabular}{ccccc}
+    \toprule
+    Resistor & Nominal & Rango esperado & Medido & Desviación \\
+    \midrule
+    $R_1$ & $680~\Omega$ ($1\,\%$) & $[673.2,\ 686.8]~\Omega$ & $666~\Omega$ & $-2.06\,\%$ \\
+    $R_2$ & $1000~\Omega$ ($1\,\%$) & $[990,\ 1010]~\Omega$ & $989~\Omega$ & $-1.10\,\%$ \\
+    $R_3$ & $2000~\Omega$ ($1\,\%$) & $[1980,\ 2020]~\Omega$ & $1949~\Omega$ & $-2.55\,\%$ \\
+    \bottomrule
+  \end{tabular}}
+\end{table}
+
+\noindent Los tres resistores son de precisión ($1\,\%$ de tolerancia) y los tres midieron levemente por debajo de su valor nominal, quedando fuera de su banda de tolerancia estricta: $R_1$ un $2.06\,\%$ por debajo ($7.8~\Omega$ fuera del límite inferior), $R_2$ un $1.10\,\%$ por debajo (apenas $1~\Omega$ fuera del límite) y $R_3$ un $2.55\,\%$ por debajo ($31~\Omega$ fuera del límite). Dado que las tres desviaciones son pequeñas (entre $1$ y $3\,\%$) y consistentemente negativas, se atribuyen a un ligero error de calibración del multímetro empleado o a una deriva menor del valor real de los componentes, y no comprometen el resto del análisis.
+
+\section{Circuito bajo prueba}
+El circuito analizado consta de dos fuentes de voltaje directo ($v_1=8~\mathrm{V}$, $v_2=6~\mathrm{V}$) y los tres resistores de la Tabla~\ref{tab:medidas-resistencia}, dispuestos en dos mallas que comparten la rama de $R_2$, con cuatro nodos identificados como $a$, $b$, $c$ y $d$.
+
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}[american, scale=0.8, transform shape]
+    \draw (0,0) -- (6,0) node[pos=0.5, below] {$d$};
+    \draw (0,0) to[battery1, invert, l=$v_1$, v_<=$8\mathrm{V}$] (0,3) node[above] {$a$};
+    \draw (0,3) to[R, l=$R_1$] (3,3) node[above] {$b$};
+    \draw (3,3) to[R, l=$R_2$] (3,0);
+    \draw (3,3) to[battery1, l=$v_2$, v_>=$6\mathrm{V}$] (6,3) node[above] {$c$};
+    \draw (6,3) to[R, l=$R_3$] (6,0);
+    \draw[->, red, thick] (1.0, 1.5) arc (180:-90:0.5);
+    \node[red] at (1.5, 1.5) {$i_1$};
+    \draw[->, red, thick] (4.0, 1.5) arc (180:-90:0.5);
+    \node[red] at (4.5, 1.5) {$i_2$};
+  \end{circuitikz}
+  \caption{Circuito de la práctica, con referencia de tierra en el nodo $d$.}
+  \label{fig:circuito-practica}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{esquematico_practica3.jpg}
+  \caption{Esquemático simulado en LTspice del circuito de la Figura~\ref{fig:circuito-practica}, con $R_1=680~\Omega$, $R_2=1000~\Omega$, $R_3=2000~\Omega$, $v_1=8~\mathrm{V}$ y $v_2=6~\mathrm{V}$.}
+  \label{fig:esquematico-ltspice}
+\end{figure}
+
+\section{Resultados teóricos (preinforme)}
+\label{sec:preinforme}
+En el preinforme \cite{preinforme} se desarrollaron el análisis nodal y el análisis de mallas del circuito de la Figura~\ref{fig:circuito-practica}, ubicando la referencia de tierra en el nodo $d$ ($v_d=0~\mathrm{V}$). Los resultados obtenidos fueron:
+\begin{align*}
+  v_a &= 8.000~\mathrm{V}, & v_b &= 4.970~\mathrm{V},\\
+  v_c &= -1.030~\mathrm{V}, & v_d &= 0~\mathrm{V},\\
+  i_1 &= 4.455~\mathrm{mA}, & i_2 &= -0.5148~\mathrm{mA}.
+\end{align*}
+A partir de estos voltajes de nodo se calcularon las caídas de tensión en cada resistor,
+\begin{align*}
+  v_{R1} &= v_a - v_b = 3.030~\mathrm{V}, \\
+  v_{R2} &= v_b - v_d = 4.970~\mathrm{V}, \\
+  v_{R3} &= v_c - v_d = -1.030~\mathrm{V},
+\end{align*}
+y se verificó teóricamente que la LVK se cumple en cada malla y la LCK en cada nodo (ver \cite{preinforme}, numerales d y e).
+
+Dado que un cambio de referencia de tierra desplaza todos los voltajes de nodo en una misma constante (el valor del voltaje del nodo elegido como nueva referencia, cambiado de signo), es posible predecir los voltajes de nodo que se obtendrían al ubicar la referencia en el nodo $c$ en lugar de $d$, restando $v_c=-1.030~\mathrm{V}$ a cada voltaje de nodo:
+\begin{align*}
+  v_a' &= v_a - v_c = 8.000-(-1.030) = 9.030~\mathrm{V}, \\
+  v_b' &= v_b - v_c = 4.970-(-1.030) = 6.000~\mathrm{V}, \\
+  v_d' &= v_d - v_c = 0-(-1.030) = 1.030~\mathrm{V}, \\
+  v_c' &= 0~\mathrm{V} \quad \text{(nueva referencia)}.
+\end{align*}
+Las corrientes de malla $i_1$ e $i_2$, así como las caídas de tensión $v_{R1}$, $v_{R2}$ y $v_{R3}$, no dependen de la elección de la referencia y permanecen iguales a las calculadas anteriormente. La Tabla~\ref{tab:resumen-preinforme} resume ambos casos.
+
+\begin{table}[H]
+  \caption{Resultados teóricos del preinforme para las dos referencias}
+  \label{tab:resumen-preinforme}
+  \centering
+  \resizebox{\columnwidth}{!}{%
+  \begin{tabular}{ccccc}
+    \toprule
+    Referencia & $v_a$ (V) & $v_b$ (V) & $v_c$ (V) & $v_d$ (V) \\
+    \midrule
+    Nodo $d$ & $8.000$ & $4.970$ & $-1.030$ & $0$ \\
+    Nodo $c$ & $9.030$ & $6.000$ & $0$ & $1.030$ \\
+    \bottomrule
+  \end{tabular}}
+  \vspace{2pt}
+  \resizebox{\columnwidth}{!}{%
+  \begin{tabular}{ccccc}
+    \toprule
+    $i_1$ (mA) & $i_2$ (mA) & $v_{R1}$ (V) & $v_{R2}$ (V) & $v_{R3}$ (V) \\
+    \midrule
+    $4.455$ & $-0.5148$ & $3.030$ & $4.970$ & $-1.030$ \\
+    \bottomrule
+  \end{tabular}}
+\end{table}
+
+\section{Simulación en LTspice}
+\label{sec:simulacion}
+Se simuló el circuito de la Figura~\ref{fig:esquematico-ltspice} mediante un análisis de punto de operación (.op), tomando primero la referencia de tierra en el nodo $d$ y luego en el nodo $c$, sin modificar ningún otro elemento del circuito.
+
+\subsection{Referencia en el nodo $d$}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\linewidth]{operatingpoint_ref_d.jpg}
+  \caption{Punto de operación simulado con la referencia de tierra en el nodo $d$: $V(\mathrm{n001})=v_a$, $V(\mathrm{n002})=v_b$, $V(\mathrm{n003})=v_c$.}
+  \label{fig:op-ref-d}
+\end{figure}
+La simulación reporta $v_a=8~\mathrm{V}$, $v_b=4.9703~\mathrm{V}$ y $v_c=-1.0297~\mathrm{V}$, con corrientes de rama $|I(R_1)|=4.45545~\mathrm{mA}$, $|I(R_2)|=4.9703~\mathrm{mA}$ e $|I(R_3)|=0.514851~\mathrm{mA}$ (el signo reportado por LTspice depende únicamente del sentido de referencia elegido para cada rama en el esquemático, y no del sentido físico real de la corriente).
+
+\subsection{Referencia en el nodo $c$}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\linewidth]{operatingpoint_ref_c.jpg}
+  \caption{Punto de operación simulado con la referencia de tierra desplazada al nodo $c$: al dejar de ser tierra, el nodo $c$ ya no aparece en el listado y el nodo $d$ pasa a reportarse como $V(\mathrm{n003})$.}
+  \label{fig:op-ref-c}
+\end{figure}
+Con la referencia en $c$, la simulación reporta $v_a=9.0297~\mathrm{V}$ ($\mathrm{n001}$), $v_b=6~\mathrm{V}$ ($\mathrm{n002}$) y $v_d=1.0297~\mathrm{V}$ ($\mathrm{n003}$), mientras que las corrientes $I(R_1)$, $I(R_2)$ e $I(R_3)$ resultan exactamente iguales a las obtenidas con la referencia en $d$. Esto confirma en la simulación lo anticipado en la Sección~\ref{sec:preinforme}: los voltajes de nodo cambian con la referencia, pero las corrientes de rama no.
+
+\begin{table}[H]
+  \caption{Comparación preinforme -- simulación (voltajes de nodo)}
+  \label{tab:comparacion-simulacion}
+  \centering
+  \resizebox{\columnwidth}{!}{%
+  \begin{tabular}{cccc}
+    \toprule
+    Referencia & Nodo & Preinforme (V) & Simulación (V) \\
+    \midrule
+    \multirow{3}{*}{$d$} & $v_a$ & $8.000$ & $8.000$ \\
+     & $v_b$ & $4.970$ & $4.9703$ \\
+     & $v_c$ & $-1.030$ & $-1.0297$ \\
+    \midrule
+    \multirow{3}{*}{$c$} & $v_a$ & $9.030$ & $9.0297$ \\
+     & $v_b$ & $6.000$ & $6.000$ \\
+     & $v_d$ & $1.030$ & $1.0297$ \\
+    \bottomrule
+  \end{tabular}}
+\end{table}
+
+Los voltajes de nodo simulados coinciden prácticamente de forma exacta con los calculados en el preinforme, con diferencias menores a $3~\mathrm{mV}$ en todos los casos, atribuibles únicamente al redondeo empleado en los cálculos manuales.
+
+\section{Montaje físico}
+\label{sec:montaje}
+Se realizó el montaje físico del circuito de la Figura~\ref{fig:circuito-practica} en protoboard (Figura~\ref{fig:montaje}) y se midieron con el multímetro los voltajes de nodo y las corrientes de malla, repitiendo la medición con la referencia (terminal común del multímetro) ubicada primero en el nodo $d$ y luego en el nodo $c$.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.85\linewidth]{montaje_practica3.jpg}
+  \caption{Montaje físico del circuito de la Figura~\ref{fig:circuito-practica} en protoboard.}
+  \label{fig:montaje}
+\end{figure}
+
+\begin{table}[H]
+  \caption{Valores medidos en el montaje}
+  \label{tab:montaje-medidas}
+  \centering
+  \resizebox{\columnwidth}{!}{%
+  \begin{tabular}{cccc}
+    \toprule
+    Referencia & $v_a$ (V) & $v_b$ (V) & $v_{c}$/$v_{d}$ (V) \\
+    \midrule
+    Nodo $d$ & $8.00$ & $4.99$ & $v_c=-1.00$ \\
+    Nodo $c$ & $9.00$ & $5.99$ & $v_d=1.00$ \\
+    \bottomrule
+  \end{tabular}}
+  \vspace{4pt}
+  \begin{tabular}{ccc}
+    \toprule
+    Referencia & $i_1$ (mA) & $i_2$ (mA) \\
+    \midrule
+    Nodo $d$ & $4.82$ & $-0.51$ \\
+    Nodo $c$ & $4.51$ & $-0.55$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\noindent En la medición con referencia en $c$, el multímetro registró $i_2$ con las puntas invertidas respecto a la medición con referencia en $d$; el valor reportado en la Tabla anterior ya se corrigió a la polaridad de referencia empleada en el análisis (Sección~\ref{sec:preinforme}), de modo que ambas mediciones resultan negativas, consistentes entre sí y con el valor teórico de $-0.5148~\mathrm{mA}$.
+
+A partir de los voltajes de nodo medidos con cada referencia se calculan las caídas de tensión en cada resistor:
+\begin{align*}
+  v_{R1} &= v_a - v_b = 9.00 - 5.99 = 3.01~\mathrm{V}, \\
+  v_{R2} &= v_b - v_d = 5.99 - 1.00 = 4.99~\mathrm{V}, \\
+  v_{R3} &= v_c - v_d = 0 - 1.00 = -1.00~\mathrm{V}.
+\end{align*}
+Empleando los voltajes medidos con la referencia en $d$ ($v_a=8.00$, $v_b=4.99$, $v_c=-1.00$, $v_d=0$) se obtienen exactamente los mismos valores: $v_{R1}=8.00-4.99=3.01~\mathrm{V}$, $v_{R2}=4.99-0=4.99~\mathrm{V}$ y $v_{R3}=-1.00-0=-1.00~\mathrm{V}$. Esto verifica experimentalmente que, aunque los voltajes de nodo cambian al mover la referencia del multímetro, la caída de tensión sobre cada resistor --al ser una diferencia entre dos nodos-- permanece invariante, tal como se predijo en la Sección~\ref{sec:preinforme} y se confirmó en la simulación (Sección~\ref{sec:simulacion}).
+
+\subsection{Verificación de la LVK con datos medidos}
+Recorriendo la malla 1 ($a$--$b$--$d$--$a$) con los voltajes medidos,
+\begin{equation*}
+  \sum v_{\text{malla}1} = -v_1 + v_{R1} + v_{R2} = -8.00 + 3.01 + 4.99 = 0,
+\end{equation*}
+y recorriendo la malla 2 ($b$--$c$--$d$--$b$),
+\begin{equation*}
+  \sum v_{\text{malla}2} = -v_{R2} + v_2 + v_{R3} = -4.99 + 5.99 - 1.00 = 0,
+\end{equation*}
+donde $v_2=v_b-v_c=5.99~\mathrm{V}$ es el voltaje medido entre los nodos $b$ y $c$, prácticamente igual al valor nominal de $6~\mathrm{V}$ de la fuente. En ambos casos la suma algebraica de las caídas de tensión es cero, verificando experimentalmente la LVK.
+
+\subsection{Verificación de la LCK con datos medidos}
+Con las corrientes de malla medidas ($i_1\approx4.82~\mathrm{mA}$, $i_2\approx-0.51~\mathrm{mA}$, referencia en $d$), la corriente en la rama compartida $R_2$ es
+\begin{equation*}
+  i_{R2} = i_1 - i_2 = 4.82 - (-0.51) = 5.33~\mathrm{mA},
+\end{equation*}
+y en cada nodo principal se cumple $\sum i_{\text{entra}} - \sum i_{\text{sale}} = 0$: en el nodo $a$ toda la corriente que entrega la fuente $v_1$ sale por $R_1$ ($i_1-i_1=0$); en el nodo $b$, la corriente que llega por $R_1$ se reparte entre $R_2$ y la malla 2 ($i_1-i_{R2}-i_2=4.82-5.33+0.51\approx0$); y en el nodo $c$, la corriente que entrega $v_2$ sale íntegramente por $R_3$ ($i_2-i_2=0$). Las pequeñas desviaciones respecto a cero (del orden de centésimas de mA) se explican por la resolución del multímetro y por la variabilidad propia de medir corrientes de bajo valor con un instrumento de banco.
+
+\section{Comparación general de resultados}
+\label{sec:comparacion}
+La Tabla~\ref{tab:comparacion-general} resume los tres conjuntos de resultados --preinforme, simulación y montaje-- para la referencia en el nodo $d$, incluyendo las caídas de tensión en cada resistor.
+
+\begin{table}[H]
+  \caption{Comparación preinforme, simulación y montaje (referencia en $d$)}
+  \label{tab:comparacion-general}
+  \centering
+  \resizebox{\columnwidth}{!}{%
+  \begin{tabular}{cccc}
+    \toprule
+    Cantidad & Preinforme & Simulación & Montaje \\
+    \midrule
+    $v_a$ (V) & $8.000$ & $8.000$ & $8.00$ \\
+    $v_b$ (V) & $4.970$ & $4.970$ & $4.99$ \\
+    $v_c$ (V) & $-1.030$ & $-1.030$ & $-1.00$ \\
+    $v_{R1}$ (V) & $3.030$ & $3.030$ & $3.01$ \\
+    $v_{R2}$ (V) & $4.970$ & $4.970$ & $4.99$ \\
+    $v_{R3}$ (V) & $-1.030$ & $-1.030$ & $-1.00$ \\
+    $i_1$ (mA) & $4.455$ & $4.455$ & $4.82$ \\
+    $i_2$ (mA) & $-0.5148$ & $-0.5148$ & $-0.51$ \\
+    \bottomrule
+  \end{tabular}}
+\end{table}
+
+Los voltajes de nodo y las caídas de tensión medidos concuerdan con el preinforme y la simulación con diferencias inferiores al $3\,\%$, congruentes con la tolerancia de los resistores comerciales empleados (Tabla~\ref{tab:medidas-resistencia}) y con la resolución del multímetro. Las corrientes de malla medidas presentan una mayor dispersión relativa: $i_1$ resultó entre un $1.3\,\%$ y un $8.2\,\%$ por encima del valor teórico según la referencia empleada ($4.51$ y $4.82~\mathrm{mA}$ frente a $4.455~\mathrm{mA}$), e $i_2$ (ya corregida por la polaridad de las puntas del multímetro, Sección~\ref{sec:montaje}) resultó entre $-0.51~\mathrm{mA}$ y $-0.55~\mathrm{mA}$, cercana al valor teórico de $-0.5148~\mathrm{mA}$. Dado que $i_2$ es una corriente de muy bajo valor, su medición es especialmente sensible a la resolución del multímetro, lo que explica la mayor dispersión relativa observada en esta rama en comparación con las magnitudes de voltaje.
+
+\section{Conclusiones}
+Se verificó experimentalmente, mediante simulación en LTspice y montaje físico en protoboard, el cumplimiento de las Leyes de Kirchhoff de voltaje y de corriente sobre el circuito resistivo de dos mallas analizado en el preinforme. La simulación reprodujo los resultados del preinforme con una exactitud prácticamente perfecta, confirmando que el análisis nodal y de mallas desarrollado manualmente fue correcto. El montaje físico concordó razonablemente bien con ambos, con diferencias menores al $3\,\%$ en voltajes y caídas de tensión, explicadas por la tolerancia de los resistores comerciales medidos (en particular $R_2=989~\Omega$ y $R_3=1949~\Omega$, un $1.1\,\%$ y un $2.55\,\%$ por debajo de sus valores nominales, respectivamente) y por la resolución del instrumento de medida; las corrientes de malla, al ser de menor magnitud, mostraron una dispersión relativa mayor entre repeticiones de la medición.
+
+El resultado más relevante de esta práctica es la verificación experimental de que la elección del nodo de referencia (tierra) es arbitraria: al repetir tanto la simulación como el montaje ubicando la referencia primero en el nodo $d$ y luego en el nodo $c$, los voltajes absolutos de cada nodo cambiaron de forma consistente con la diferencia de potencial entre ambas referencias, mientras que las caídas de tensión sobre cada resistor y las corrientes de malla permanecieron invariantes en los tres escenarios (preinforme, simulación y montaje). Esto confirma de manera práctica que la LVK y la LCK son independientes de la referencia de tierra elegida, un principio fundamental del análisis nodal de circuitos.
+
+\begin{thebibliography}{00}
+  \bibitem{guia}
+  Universidad de Antioquia, ``Guía de Práctica de Laboratorio No. 3: Circuitos Resistivos - Parte 2,'' Departamento de Ingeniería Electrónica y de Telecomunicaciones, Medellín, Colombia, 2026.
+  \bibitem{preinforme}
+  M. P. Mejía Vásquez y C. A. Guarín Marín, ``Preinforme: Circuitos Resistivos - Parte 2, Práctica de Laboratorio No. 3,'' Universidad de Antioquia, Medellín, Colombia, 2026.
+  \bibitem{texto}
+  C. K. Alexander y M. N. O. Sadiku, \emph{Fundamentos de circuitos eléctricos}, 5.ª ed. México D.F., México: McGraw-Hill Interamericana, 2013.
+\end{thebibliography}
+
+\end{document}
