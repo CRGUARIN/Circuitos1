@@ -49,19 +49,17 @@ TeX Live 2023) sin errores, generando un PDF de 4 páginas.
    ```latex
    \includegraphics[width=0.85\linewidth]{resistores.jpg}
    ```
-2. **Tabla I (valores medidos de resistencia):** confirme la tolerancia
-   (color de la banda), el rango esperado y el valor medido exacto de
-   $R_1$ y $R_3$ -- del cuaderno de mediciones solo se pudo leer con
-   certeza $R_2=989~\Omega$ ($1\,\%$).
+2. **Tabla I (valores medidos de resistencia):** ya confirmados
+   $R_2=989~\Omega$ ($1\,\%$) y $R_3=1949~\Omega$. Falta el valor medido
+   de $R_1$, además del color de la banda de tolerancia de $R_1$ y $R_3$
+   (para completar las columnas "Rango esperado").
 3. **Datos del montaje (Sección VII, Cuadro IV):** los voltajes de nodo y
    las corrientes de malla medidas se transcribieron de las notas
-   manuscritas (`Informe/Desarrollo a mano/Mediciones_Montaje.jpg`).
-   Revísense contra el original antes de entregar, en particular:
-   - $i_1=4.82~\mathrm{mA}$ e $i_2=-0.51~\mathrm{mA}$ (referencia en $d$).
-   - $i_1=4.51~\mathrm{mA}$ e $i_2=0.55~\mathrm{mA}$ (referencia en $c$).
-   El cambio de signo de $i_2$ entre ambas mediciones se explica en el
-   texto como un efecto de polaridad de las puntas del multímetro; ajuste
-   esa explicación si en el laboratorio ocurrió algo distinto.
+   manuscritas (`Informe/Desarrollo a mano/Mediciones_Montaje.jpg`). El
+   signo de $i_2$ en la medición con referencia en $c$ ya se corrigió
+   (era un efecto de la polaridad de las puntas del multímetro, según
+   indicación de los autores), quedando $i_2=-0.51~\mathrm{mA}$
+   (referencia en $d$) e $i_2=-0.55~\mathrm{mA}$ (referencia en $c$).
 4. Revise los números de figura/tabla tras compilar y ajuste el tamaño de
    las imágenes (`width=...`) si alguna queda demasiado grande o pequeña.
 5. Agregue portada, encabezados o cualquier otro elemento adicional que
