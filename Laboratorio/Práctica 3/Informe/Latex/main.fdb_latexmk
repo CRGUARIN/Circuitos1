@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1790292425.43371 "main.tex" "main.pdf" "main" 1790292426.25843 0
+["pdflatex"] 1790292633.86854 "main.tex" "main.pdf" "main" 1790292634.65731 0
   "/etc/texmf/web2c/texmf.cnf" 1790291902.8696 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm" 1136768653 2172 fd0c924230362ff848a33632ed45dc23 ""
@@ -194,8 +194,8 @@
   "img/montaje_practica3.jpg" 1790291747.09562 129464 8bd4096c770a32c93210e92dd207dd15 ""
   "img/operatingpoint_ref_c.jpg" 1790291747.09069 67868 01e1b72e334f078ff08445f9179f0610 ""
   "img/operatingpoint_ref_d.jpg" 1790291747.08771 68895 34f8601baaef1b9b1c910356ad79573b ""
-  "main.aux" 1790292426.15925 5041 54d3483e4bd0e95c46c70cf8690f3be7 "pdflatex"
-  "main.tex" 1790292420.43125 21760 6f571689bc6b20a1560db9328d2c6043 ""
+  "main.aux" 1790292634.55926 5115 c77c7cfcb0ce440a2685c324d8f16f6e "pdflatex"
+  "main.tex" 1790292623.69126 21824 c64ffc940edd2d65c1c7ce4ed5e87608 ""
   (generated)
   "main.aux"
   "main.log"

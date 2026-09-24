@@ -10,8 +10,8 @@ voltajes de nodo cambian con la referencia mientras que las caídas de tensión
 y las corrientes de rama no.
 
 Las imágenes ya están copiadas en la carpeta `img/` (a partir de las fotos y
-capturas que ya tenías en `Informe/Simulaciones` e `Informe/Montajes`), así
-que el documento compila salvo por la foto de los resistores (ver pendientes).
+capturas que ya tenías en `Informe/Simulaciones` e `Informe/Montajes`), y el
+documento compila completo, sin campos `[Completar]` pendientes.
 
 ## Dependencias en Arch Linux
 
@@ -38,29 +38,28 @@ El PDF resultante será main.pdf. Para limpiar archivos auxiliares:
     latexmk -c
 
 El documento fue compilado y verificado en este entorno (Ubuntu 24.04 +
-TeX Live 2023) sin errores, generando un PDF de 4 páginas.
+TeX Live 2023) sin errores, generando un PDF de 5 páginas.
+
+## Datos confirmados
+
+- **Resistores medidos (Tabla I):** los tres son de $1\,\%$ de tolerancia.
+  $R_1=666~\Omega$, $R_2=989~\Omega$, $R_3=1949~\Omega$. Los tres midieron
+  levemente por debajo de su valor nominal (entre $1$ y $3\,\%$), quedando
+  justo fuera de su banda de tolerancia estricta -- se discute en el texto
+  como un efecto menor de calibración del multímetro.
+- **Foto de los resistores (Figura 1):** es la misma fotografía del montaje
+  en protoboard (`img/montaje_practica3.jpg`), reutilizada porque en ella
+  se aprecian los tres resistores azules con su código de colores.
+- **Corrientes de malla medidas (Cuadro IV):** el signo de $i_2$ en la
+  medición con referencia en $c$ se corrigió por la polaridad invertida de
+  las puntas del multímetro en esa medición (confirmado por los autores),
+  quedando $i_2=-0.51~\mathrm{mA}$ (referencia en $d$) e
+  $i_2=-0.55~\mathrm{mA}$ (referencia en $c$).
 
 ## Antes de entregar
 
-1. **Foto de los resistores (Figura 1):** falta la foto de $R_1$, $R_2$ y
-   $R_3$ mostrando el código de colores. Guárdela como
-   `img/resistores.jpg` y reemplace el recuadro `[Completar: ...]` de la
-   Figura 1 por:
-   ```latex
-   \includegraphics[width=0.85\linewidth]{resistores.jpg}
-   ```
-2. **Tabla I (valores medidos de resistencia):** ya confirmados
-   $R_2=989~\Omega$ ($1\,\%$) y $R_3=1949~\Omega$. Falta el valor medido
-   de $R_1$, además del color de la banda de tolerancia de $R_1$ y $R_3$
-   (para completar las columnas "Rango esperado").
-3. **Datos del montaje (Sección VII, Cuadro IV):** los voltajes de nodo y
-   las corrientes de malla medidas se transcribieron de las notas
-   manuscritas (`Informe/Desarrollo a mano/Mediciones_Montaje.jpg`). El
-   signo de $i_2$ en la medición con referencia en $c$ ya se corrigió
-   (era un efecto de la polaridad de las puntas del multímetro, según
-   indicación de los autores), quedando $i_2=-0.51~\mathrm{mA}$
-   (referencia en $d$) e $i_2=-0.55~\mathrm{mA}$ (referencia en $c$).
-4. Revise los números de figura/tabla tras compilar y ajuste el tamaño de
-   las imágenes (`width=...`) si alguna queda demasiado grande o pequeña.
-5. Agregue portada, encabezados o cualquier otro elemento adicional que
+1. Revise los números de figura/tabla tras compilar y ajuste el tamaño de
+   las imágenes (`width=...`) si alguna queda demasiado grande o pequeña,
+   o si prefiere una foto de los resistores distinta a la del montaje.
+2. Agregue portada, encabezados o cualquier otro elemento adicional que
    pida su profesor para el envío del informe.

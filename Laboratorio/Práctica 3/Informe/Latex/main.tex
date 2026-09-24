@@ -67,8 +67,8 @@ Para el desarrollo de la práctica se emplearon los siguientes materiales: proto
 
 \begin{figure}[H]
   \centering
-  \fbox{\parbox[c][4cm][c]{0.85\linewidth}{\centering\completar{Insertar foto de $R_1$, $R_2$ y $R_3$ (código de colores) -- pendiente de recibir la imagen.}}}
-  \caption{Resistores $R_1$, $R_2$ y $R_3$ empleados en la práctica, donde se aprecia el código de colores de cada uno.}
+  \includegraphics[width=0.85\linewidth]{montaje_practica3.jpg}
+  \caption{Resistores $R_1$, $R_2$ y $R_3$ empleados en la práctica (los tres resistores azules de película, dispuestos sobre la protoboard), donde se aprecia el código de colores de cada uno.}
   \label{fig:resistores}
 \end{figure}
 
@@ -83,14 +83,14 @@ La Tabla~\ref{tab:medidas-resistencia} presenta el valor nominal de cada resisto
     \toprule
     Resistor & Nominal & Rango esperado & Medido & Desviación \\
     \midrule
-    $R_1$ & $680~\Omega$ (\completar{tol.}) & \completar{rango} & \completar{$R_1$} & \completar{\%} \\
+    $R_1$ & $680~\Omega$ ($1\,\%$) & $[673.2,\ 686.8]~\Omega$ & $666~\Omega$ & $-2.06\,\%$ \\
     $R_2$ & $1000~\Omega$ ($1\,\%$) & $[990,\ 1010]~\Omega$ & $989~\Omega$ & $-1.10\,\%$ \\
-    $R_3$ & $2000~\Omega$ (\completar{tol.}) & \completar{rango} & $1949~\Omega$ & $-2.55\,\%$ \\
+    $R_3$ & $2000~\Omega$ ($1\,\%$) & $[1980,\ 2020]~\Omega$ & $1949~\Omega$ & $-2.55\,\%$ \\
     \bottomrule
   \end{tabular}}
 \end{table}
 
-\noindent El resistor $R_2$ midió por debajo de su banda de tolerancia nominal de $1\,\%$, una desviación pequeña ($1.1\,\%$) atribuible a un ligero error de calibración del multímetro o a una deriva menor del valor real del componente. El resistor $R_3$ midió $1949~\Omega$, un $2.55\,\%$ por debajo de su valor nominal; esta desviación, mayor que la de $R_2$, es consistente con una tolerancia comercial de $5\,\%$ para este componente. \completar{Confirmar el color de la banda de tolerancia de $R_1$ y $R_3$, y completar el valor medido de $R_1$.}
+\noindent Los tres resistores son de precisión ($1\,\%$ de tolerancia) y los tres midieron levemente por debajo de su valor nominal, quedando fuera de su banda de tolerancia estricta: $R_1$ un $2.06\,\%$ por debajo ($7.8~\Omega$ fuera del límite inferior), $R_2$ un $1.10\,\%$ por debajo (apenas $1~\Omega$ fuera del límite) y $R_3$ un $2.55\,\%$ por debajo ($31~\Omega$ fuera del límite). Dado que las tres desviaciones son pequeñas (entre $1$ y $3\,\%$) y consistentemente negativas, se atribuyen a un ligero error de calibración del multímetro empleado o a una deriva menor del valor real de los componentes, y no comprometen el resto del análisis.
 
 \section{Circuito bajo prueba}
 El circuito analizado consta de dos fuentes de voltaje directo ($v_1=8~\mathrm{V}$, $v_2=6~\mathrm{V}$) y los tres resistores de la Tabla~\ref{tab:medidas-resistencia}, dispuestos en dos mallas que comparten la rama de $R_2$, con cuatro nodos identificados como $a$, $b$, $c$ y $d$.
