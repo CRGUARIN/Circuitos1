@@ -81,9 +81,9 @@ De acuerdo con la guía, se seleccionan tres resistores en el rango solicitado y
     \toprule
     Componente & Valor Nominal & Especificación \\
     \midrule
-    Resistor $R_1$ & \completar{Valor} $\Omega$ & $1/2~\mathrm{W}$ \\
-    Resistor $R_2$ & \completar{Valor} $\Omega$ & $1/2~\mathrm{W}$ \\
-    Resistor $R_3$ & \completar{Valor} $\Omega$ & $1/2~\mathrm{W}$ \\
+    Resistor $R_1$ & $680~\Omega$ & $1/2~\mathrm{W}$ \\
+    Resistor $R_2$ & $1000~\Omega$ & $1/2~\mathrm{W}$ \\
+    Resistor $R_3$ & $2000~\Omega$ & $1/2~\mathrm{W}$ \\
     Fuente $v_1$ & $8~\mathrm{V}$ & Corriente directa \\
     Fuente $v_2$ & $6~\mathrm{V}$ & Corriente directa \\
     \bottomrule
@@ -118,7 +118,7 @@ De acuerdo con la guía, se seleccionan tres resistores en el rango solicitado y
 \end{figure}
 
 \subsection{Tabla de resultados (Punto 2a)}
-En la siguiente tabla se resumen los voltajes y corrientes teóricas halladas mediante el análisis de nodos y mallas que se detallará en las secciones posteriores.
+En la siguiente tabla se resumen los voltajes y corrientes teóricas halladas mediante el análisis de nodos y mallas.
 
 \begin{table}[H]
   \caption{Voltajes de nodo y corrientes de malla - preinforme}
@@ -131,7 +131,7 @@ En la siguiente tabla se resumen los voltajes y corrientes teóricas halladas me
     \cmidrule(r){1-4} \cmidrule(l){5-6}
     $v_a$ & $v_b$ & $v_c$ & $v_d$ & $i_1$ & $i_2$ \\
     \midrule
-    \completar{Va} & \completar{Vb} & \completar{Vc} & 0 & \completar{I1} & \completar{I2} \\
+    \completar{Va} & \completar{Vb} & \completar{Vc} & 0 & $4.455$ & $-0.5148$ \\
     \bottomrule
   \end{tabular}%
   }
@@ -146,8 +146,44 @@ Se determina el voltaje en todos los nodos del circuito ($v_a, v_b, v_c$) asumie
 \subsection{Análisis de Mallas (Persona B - Punto 2c)}
 Se determinan las corrientes de malla del circuito ($i_1, i_2$) planteando las ecuaciones de lazo correspondientes.
 
-\completar{Persona B: Plantear aquí las ecuaciones de malla paso a paso. Muestra la solución del sistema.}
-\espaciocalculos
+\textbf{Malla 1:}
+\begin{align*}
+    -v_1 + R_1 i_1 + R_2 (i_1 - i_2) &= 0 \\
+    (R_1 + R_2) i_1 - R_2 i_2 &= v_1 \\
+    (680 + 1000) i_1 - 1000 i_2 &= 8 \\
+    1680 i_1 - 1000 i_2 &= 8 \quad \text{(Eq. 1)}
+\end{align*}
+
+\textbf{Malla 2:}
+\begin{align*}
+    R_2 (i_2 - i_1) + v_2 + R_3 i_2 &= 0 \\
+    -R_2 i_1 + (R_2 + R_3) i_2 &= -v_2 \\
+    -1000 i_1 + (1000 + 2000) i_2 &= -6 \\
+    -1000 i_1 + 3000 i_2 &= -6 \quad \text{(Eq. 2)}
+\end{align*}
+
+Expresando el sistema de ecuaciones en forma matricial:
+\begin{equation*}
+    \begin{bmatrix}
+        1680 & -1000 \\
+        -1000 & 3000
+    \end{bmatrix}
+    \begin{bmatrix}
+        i_1 \\
+        i_2
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        8 \\
+        -6
+    \end{bmatrix}
+\end{equation*}
+
+Resolviendo el sistema matricial, se obtienen las corrientes de malla:
+\begin{align*}
+    i_1 &= 0.004455~\mathrm{A} = 4.455~\mathrm{mA} \\
+    i_2 &= -0.0005148~\mathrm{A} = -0.5148~\mathrm{mA}
+\end{align*}
 
 \subsection{Comprobación de la Ley de Voltajes (Persona A - Punto 2d)}
 Empleando los voltajes de nodo hallados, se calculan las tensiones en cada componente y se verifica que la suma en cada malla es cero.
@@ -156,10 +192,37 @@ Empleando los voltajes de nodo hallados, se calculan las tensiones en cada compo
 \espaciocalculos
 
 \subsection{Comprobación de la Ley de Corrientes (Persona B - Punto 2e)}
-Empleando las corrientes de malla halladas, se calculan las corrientes de cada rama y se verifica que la sumatoria en cada nodo es cero.
+Empleando las corrientes de malla halladas, se deducen las corrientes de cada rama y se verifica que la sumatoria en cada nodo principal es cero ($\sum i_{in} - \sum i_{out} = 0$).
 
-\completar{Persona B: Deduzcan las corrientes entrantes y salientes a cada nodo principal a partir de i1 e i2. Demostrar que sumatoria I = 0 en los nodos.}
-\espaciocalculos
+Previamente, hallamos la corriente en la rama compartida ($R_2$):
+\begin{equation*}
+    i_{R2} = i_1 - i_2 = 4.455~\mathrm{mA} - (-0.5148~\mathrm{mA}) = 4.9698~\mathrm{mA}
+\end{equation*}
+
+\textbf{Nodo a (LCK):}
+\begin{align*}
+    \sum i_a &= i_{v1} - i_{R1} = i_1 - i_1 \\
+    \sum i_a &= 4.455 - 4.455 = 0
+\end{align*}
+
+\textbf{Nodo b (LCK):}
+\begin{align*}
+    \sum i_b &= i_1 - i_{R2} - i_2 = 0 \\
+    \sum i_b &= 4.455 - (4.455 - (-0.5148)) - (-0.5148) \\
+    \sum i_b &= 4.455 - 4.9698 + 0.5148 = 0
+\end{align*}
+
+\textbf{Nodo c (LCK):}
+\begin{align*}
+    \sum i_c &= i_2 - i_{R3} = i_2 - i_2 \\
+    \sum i_c &= -0.5148 - (-0.5148) = 0
+\end{align*}
+
+\textbf{Nodo d (LCK):}
+\begin{align*}
+    \sum i_d &= i_2 + i_{R2} - i_1 = 0 \\
+    \sum i_d &= (-0.5148) + 4.9698 - 4.455 = 0
+\end{align*}
 
 \section{Referencias}
 \begin{thebibliography}{00}
