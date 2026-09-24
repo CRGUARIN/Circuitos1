@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1790293560.30973 "main.tex" "main.pdf" "main" 1790293561.19443 0
+["pdflatex"] 1790294228.72354 "main.tex" "main.pdf" "main" 1790294229.77547 0
   "/etc/texmf/web2c/texmf.cnf" 1790291902.8696 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm" 1136768653 2172 fd0c924230362ff848a33632ed45dc23 ""
@@ -193,8 +193,8 @@
   "img/operatingpoint_ref_c.jpg" 1790291747.09069 67868 01e1b72e334f078ff08445f9179f0610 ""
   "img/operatingpoint_ref_d.jpg" 1790291747.08771 68895 34f8601baaef1b9b1c910356ad79573b ""
   "img/resistores.jpg" 1790292759.1038 445147 421d292b3222a70db246393fe51acddb ""
-  "main.aux" 1790293561.09071 5053 e6e6b684bb346c265c9060012187012e "pdflatex"
-  "main.tex" 1790293545.04271 20274 9db524d8ca7fa40e742d25ed2b6c4c4d ""
+  "main.aux" 1790294229.67324 5053 e6e6b684bb346c265c9060012187012e "pdflatex"
+  "main.tex" 1790294222.30124 20241 0e2cef0591d2e0e4f932a5da348ee073 ""
   (generated)
   "main.aux"
   "main.log"
