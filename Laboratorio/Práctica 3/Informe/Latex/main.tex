@@ -6,7 +6,6 @@
 \spanishplainpercent
 \usepackage{amsmath,amssymb}
 \usepackage{booktabs}
-\usepackage{multirow}
 \usepackage{xcolor}
 \usepackage{float}
 \usepackage{graphicx}
@@ -134,37 +133,18 @@ A partir de estos voltajes de nodo se calcularon las caídas de tensión en cada
   v_{R2} &= v_b - v_d = 4.970~\mathrm{V}, \\
   v_{R3} &= v_c - v_d = -1.030~\mathrm{V},
 \end{align*}
-y se verificó teóricamente que la LVK se cumple en cada malla y la LCK en cada nodo (ver \cite{preinforme}, numerales d y e).
-
-Dado que un cambio de referencia de tierra desplaza todos los voltajes de nodo en una misma constante (el valor del voltaje del nodo elegido como nueva referencia, cambiado de signo), es posible predecir los voltajes de nodo que se obtendrían al ubicar la referencia en el nodo $c$ en lugar de $d$, restando $v_c=-1.030~\mathrm{V}$ a cada voltaje de nodo:
-\begin{align*}
-  v_a' &= v_a - v_c = 8.000-(-1.030) = 9.030~\mathrm{V}, \\
-  v_b' &= v_b - v_c = 4.970-(-1.030) = 6.000~\mathrm{V}, \\
-  v_d' &= v_d - v_c = 0-(-1.030) = 1.030~\mathrm{V}, \\
-  v_c' &= 0~\mathrm{V} \quad \text{(nueva referencia)}.
-\end{align*}
-Las corrientes de malla $i_1$ e $i_2$, así como las caídas de tensión $v_{R1}$, $v_{R2}$ y $v_{R3}$, no dependen de la elección de la referencia y permanecen iguales a las calculadas anteriormente. La Tabla~\ref{tab:resumen-preinforme} resume ambos casos.
+y se verificó teóricamente que la LVK se cumple en cada malla y la LCK en cada nodo (ver \cite{preinforme}, numerales d y e). La Tabla~\ref{tab:resumen-preinforme} resume estos resultados.
 
 \begin{table}[H]
-  \caption{Resultados teóricos del preinforme para las dos referencias}
+  \caption{Resultados teóricos del preinforme (referencia en el nodo $d$)}
   \label{tab:resumen-preinforme}
   \centering
   \resizebox{\columnwidth}{!}{%
-  \begin{tabular}{ccccc}
+  \begin{tabular}{cccccccc}
     \toprule
-    Referencia & $v_a$ (V) & $v_b$ (V) & $v_c$ (V) & $v_d$ (V) \\
+    $v_a$ (V) & $v_b$ (V) & $v_c$ (V) & $v_d$ (V) & $i_1$ (mA) & $i_2$ (mA) \\
     \midrule
-    Nodo $d$ & $8.000$ & $4.970$ & $-1.030$ & $0$ \\
-    Nodo $c$ & $9.030$ & $6.000$ & $0$ & $1.030$ \\
-    \bottomrule
-  \end{tabular}}
-  \vspace{2pt}
-  \resizebox{\columnwidth}{!}{%
-  \begin{tabular}{ccccc}
-    \toprule
-    $i_1$ (mA) & $i_2$ (mA) & $v_{R1}$ (V) & $v_{R2}$ (V) & $v_{R3}$ (V) \\
-    \midrule
-    $4.455$ & $-0.5148$ & $3.030$ & $4.970$ & $-1.030$ \\
+    $8.000$ & $4.970$ & $-1.030$ & $0$ & $4.455$ & $-0.5148$ \\
     \bottomrule
   \end{tabular}}
 \end{table}
@@ -189,24 +169,19 @@ La simulación reporta $v_a=8~\mathrm{V}$, $v_b=4.9703~\mathrm{V}$ y $v_c=-1.029
   \caption{Punto de operación simulado con la referencia de tierra desplazada al nodo $c$: al dejar de ser tierra, el nodo $c$ ya no aparece en el listado y el nodo $d$ pasa a reportarse como $V(\mathrm{n003})$.}
   \label{fig:op-ref-c}
 \end{figure}
-Con la referencia en $c$, la simulación reporta $v_a=9.0297~\mathrm{V}$ ($\mathrm{n001}$), $v_b=6~\mathrm{V}$ ($\mathrm{n002}$) y $v_d=1.0297~\mathrm{V}$ ($\mathrm{n003}$), mientras que las corrientes $I(R_1)$, $I(R_2)$ e $I(R_3)$ resultan exactamente iguales a las obtenidas con la referencia en $d$. Esto confirma en la simulación lo anticipado en la Sección~\ref{sec:preinforme}: los voltajes de nodo cambian con la referencia, pero las corrientes de rama no.
+Con la referencia en $c$, la simulación reporta $v_a=9.0297~\mathrm{V}$ ($\mathrm{n001}$), $v_b=6~\mathrm{V}$ ($\mathrm{n002}$) y $v_d=1.0297~\mathrm{V}$ ($\mathrm{n003}$), mientras que las corrientes $I(R_1)$, $I(R_2)$ e $I(R_3)$ resultan exactamente iguales a las obtenidas con la referencia en $d$: los voltajes de nodo cambian con la referencia, pero las corrientes de rama no.
 
 \begin{table}[H]
-  \caption{Comparación preinforme -- simulación (voltajes de nodo)}
+  \caption{Comparación preinforme -- simulación (referencia en el nodo $d$)}
   \label{tab:comparacion-simulacion}
   \centering
   \resizebox{\columnwidth}{!}{%
   \begin{tabular}{cccc}
     \toprule
-    Referencia & Nodo & Preinforme (V) & Simulación (V) \\
+    Nodo & $v_a$ (V) & $v_b$ (V) & $v_c$ (V) \\
     \midrule
-    \multirow{3}{*}{$d$} & $v_a$ & $8.000$ & $8.000$ \\
-     & $v_b$ & $4.970$ & $4.9703$ \\
-     & $v_c$ & $-1.030$ & $-1.0297$ \\
-    \midrule
-    \multirow{3}{*}{$c$} & $v_a$ & $9.030$ & $9.0297$ \\
-     & $v_b$ & $6.000$ & $6.000$ \\
-     & $v_d$ & $1.030$ & $1.0297$ \\
+    Preinforme & $8.000$ & $4.970$ & $-1.030$ \\
+    Simulación & $8.000$ & $4.9703$ & $-1.0297$ \\
     \bottomrule
   \end{tabular}}
 \end{table}
@@ -256,7 +231,7 @@ A partir de los voltajes de nodo medidos con cada referencia se calculan las ca�
   v_{R2} &= v_b - v_d = 5.99 - 1.00 = 4.99~\mathrm{V}, \\
   v_{R3} &= v_c - v_d = 0 - 1.00 = -1.00~\mathrm{V}.
 \end{align*}
-Empleando los voltajes medidos con la referencia en $d$ ($v_a=8.00$, $v_b=4.99$, $v_c=-1.00$, $v_d=0$) se obtienen exactamente los mismos valores: $v_{R1}=8.00-4.99=3.01~\mathrm{V}$, $v_{R2}=4.99-0=4.99~\mathrm{V}$ y $v_{R3}=-1.00-0=-1.00~\mathrm{V}$. Esto verifica experimentalmente que, aunque los voltajes de nodo cambian al mover la referencia del multímetro, la caída de tensión sobre cada resistor --al ser una diferencia entre dos nodos-- permanece invariante, tal como se predijo en la Sección~\ref{sec:preinforme} y se confirmó en la simulación (Sección~\ref{sec:simulacion}).
+Empleando los voltajes medidos con la referencia en $d$ ($v_a=8.00$, $v_b=4.99$, $v_c=-1.00$, $v_d=0$) se obtienen exactamente los mismos valores: $v_{R1}=8.00-4.99=3.01~\mathrm{V}$, $v_{R2}=4.99-0=4.99~\mathrm{V}$ y $v_{R3}=-1.00-0=-1.00~\mathrm{V}$. Esto verifica experimentalmente que, aunque los voltajes de nodo cambian al mover la referencia del multímetro, la caída de tensión sobre cada resistor --al ser una diferencia entre dos nodos-- permanece invariante, tal como se observó también en la simulación (Sección~\ref{sec:simulacion}).
 
 \subsection{Verificación de la LVK con datos medidos}
 Recorriendo la malla 1 ($a$--$b$--$d$--$a$) con los voltajes medidos,
@@ -306,7 +281,7 @@ Los voltajes de nodo y las caídas de tensión medidos concuerdan con el preinfo
 \section{Conclusiones}
 Se verificó experimentalmente, mediante simulación en LTspice y montaje físico en protoboard, el cumplimiento de las Leyes de Kirchhoff de voltaje y de corriente sobre el circuito resistivo de dos mallas analizado en el preinforme. La simulación reprodujo los resultados del preinforme con una exactitud prácticamente perfecta, confirmando que el análisis nodal y de mallas desarrollado manualmente fue correcto. El montaje físico concordó razonablemente bien con ambos, con diferencias menores al $3\,\%$ en voltajes y caídas de tensión, explicadas por la tolerancia de los resistores comerciales medidos (en particular $R_2=989~\Omega$ y $R_3=1949~\Omega$, un $1.1\,\%$ y un $2.55\,\%$ por debajo de sus valores nominales, respectivamente) y por la resolución del instrumento de medida; las corrientes de malla, al ser de menor magnitud, mostraron una dispersión relativa mayor entre repeticiones de la medición.
 
-El resultado más relevante de esta práctica es la verificación experimental de que la elección del nodo de referencia (tierra) es arbitraria: al repetir tanto la simulación como el montaje ubicando la referencia primero en el nodo $d$ y luego en el nodo $c$, los voltajes absolutos de cada nodo cambiaron de forma consistente con la diferencia de potencial entre ambas referencias, mientras que las caídas de tensión sobre cada resistor y las corrientes de malla permanecieron invariantes en los tres escenarios (preinforme, simulación y montaje). Esto confirma de manera práctica que la LVK y la LCK son independientes de la referencia de tierra elegida, un principio fundamental del análisis nodal de circuitos.
+El resultado más relevante de esta práctica es la verificación experimental de que la elección del nodo de referencia (tierra) es arbitraria: al repetir tanto la simulación como el montaje ubicando la referencia primero en el nodo $d$ y luego en el nodo $c$, los voltajes absolutos de cada nodo cambiaron de forma consistente con la diferencia de potencial entre ambas referencias, mientras que las caídas de tensión sobre cada resistor y las corrientes de malla permanecieron invariantes en ambos casos. Esto confirma de manera práctica que la LVK y la LCK son independientes de la referencia de tierra elegida, un principio fundamental del análisis nodal de circuitos.
 
 \begin{thebibliography}{00}
   \bibitem{guia}

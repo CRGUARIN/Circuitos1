@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1790292777.61726 "main.tex" "main.pdf" "main" 1790292778.40194 0
+["pdflatex"] 1790293560.30973 "main.tex" "main.pdf" "main" 1790293561.19443 0
   "/etc/texmf/web2c/texmf.cnf" 1790291902.8696 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm" 1136768653 2172 fd0c924230362ff848a33632ed45dc23 ""
@@ -45,7 +45,6 @@
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb" 1248133631 32762 224316ccc9ad3ca0423a14971cfa7fc1 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb" 1248133631 32726 0a1aea6fcd6468ee2cf64d891f5c43c8 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
-  "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb" 1248133631 32716 08e384dc442464e7285e891af9f45947 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb" 1248133631 32626 4f5c1b83753b1dd3a97d1b399a005b4b ""
   "/usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb" 1136849748 44729 811d6c62865936705a31c797a1d5dada ""
   "/usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb" 1136849748 44656 0cbca70e0534538582128f6b54593cca ""
@@ -171,7 +170,6 @@
   "/usr/share/texlive/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty" 1665067230 13815 760b0c02f691ea230f5359c4e1de23a7 ""
   "/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def" 1704491087 30006 57b07afb710ee2f649c65cfbafda39c1 ""
   "/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg" 1279039959 678 4792914a8f45be57bb98413425e4c7af ""
-  "/usr/share/texlive/texmf-dist/tex/latex/multirow/multirow.sty" 1615845910 6149 2398eec4faa1ee24ff761581e580ecf1 ""
   "/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty" 1601326656 1090 bae35ef70b3168089ef166db3e66f5b2 ""
   "/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty" 1673816307 373 00b204b1d7d095b892ad31a7494b0373 ""
   "/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-65.sty" 1601326656 21013 f4ff83d25bb56552493b030f27c075ae ""
@@ -195,8 +193,8 @@
   "img/operatingpoint_ref_c.jpg" 1790291747.09069 67868 01e1b72e334f078ff08445f9179f0610 ""
   "img/operatingpoint_ref_d.jpg" 1790291747.08771 68895 34f8601baaef1b9b1c910356ad79573b ""
   "img/resistores.jpg" 1790292759.1038 445147 421d292b3222a70db246393fe51acddb ""
-  "main.aux" 1790292778.30327 5041 0ce2dbfbea69a5f3a8e4ad6dd2885e9e "pdflatex"
-  "main.tex" 1790292771.64327 21743 c5457d4ae0870c452bb925505d0628c9 ""
+  "main.aux" 1790293561.09071 5053 e6e6b684bb346c265c9060012187012e "pdflatex"
+  "main.tex" 1790293545.04271 20274 9db524d8ca7fa40e742d25ed2b6c4c4d ""
   (generated)
   "main.aux"
   "main.log"
