@@ -47,9 +47,9 @@ TeX Live 2023) sin errores, generando un PDF de 5 páginas.
   levemente por debajo de su valor nominal (entre $1$ y $3\,\%$), quedando
   justo fuera de su banda de tolerancia estricta -- se discute en el texto
   como un efecto menor de calibración del multímetro.
-- **Foto de los resistores (Figura 1):** es la misma fotografía del montaje
-  en protoboard (`img/montaje_practica3.jpg`), reutilizada porque en ella
-  se aprecian los tres resistores azules con su código de colores.
+- **Foto de los resistores (Figura 1):** `img/resistores.jpg`, foto
+  dedicada de $R_1$, $R_2$ y $R_3$ mostrando el código de colores de cada
+  uno (también guardada en `Informe/Resistores_Practica3.jpg`).
 - **Corrientes de malla medidas (Cuadro IV):** el signo de $i_2$ en la
   medición con referencia en $c$ se corrigió por la polaridad invertida de
   las puntas del multímetro en esa medición (confirmado por los autores),

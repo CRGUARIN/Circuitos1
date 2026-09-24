@@ -334,11 +334,11 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam7.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm
-INPUT ./img/montaje_practica3.jpg
-INPUT ./img/montaje_practica3.jpg
-INPUT ./img/montaje_practica3.jpg
+INPUT ./img/resistores.jpg
+INPUT ./img/resistores.jpg
+INPUT ./img/resistores.jpg
 OUTPUT main.pdf
-INPUT ./img/montaje_practica3.jpg
+INPUT ./img/resistores.jpg
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmr8.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmmi8.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm
@@ -377,6 +377,7 @@ INPUT ./img/operatingpoint_ref_c.jpg
 INPUT ./img/operatingpoint_ref_c.jpg
 INPUT ./img/operatingpoint_ref_c.jpg
 INPUT ./img/operatingpoint_ref_c.jpg
+INPUT ./img/montaje_practica3.jpg
 INPUT ./img/montaje_practica3.jpg
 INPUT ./img/montaje_practica3.jpg
 INPUT ./img/montaje_practica3.jpg
