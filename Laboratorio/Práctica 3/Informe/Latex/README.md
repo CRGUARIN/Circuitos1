@@ -42,19 +42,28 @@ TeX Live 2023) sin errores, generando un PDF de 5 páginas.
 
 ## Datos confirmados
 
-- **Resistores medidos (Tabla I):** los tres son de $1\,\%$ de tolerancia.
-  $R_1=666~\Omega$, $R_2=989~\Omega$, $R_3=1949~\Omega$. Los tres midieron
-  levemente por debajo de su valor nominal (entre $1$ y $3\,\%$), quedando
-  justo fuera de su banda de tolerancia estricta -- se discute en el texto
-  como un efecto menor de calibración del multímetro.
-- **Foto de los resistores (Figura 1):** `img/resistores.jpg`, foto
-  dedicada de $R_1$, $R_2$ y $R_3$ mostrando el código de colores de cada
-  uno (también guardada en `Informe/Resistores_Practica3.jpg`).
-- **Corrientes de malla medidas (Cuadro IV):** el signo de $i_2$ en la
-  medición con referencia en $c$ se corrigió por la polaridad invertida de
-  las puntas del multímetro en esa medición (confirmado por los autores),
-  quedando $i_2=-0.51~\mathrm{mA}$ (referencia en $d$) e
-  $i_2=-0.55~\mathrm{mA}$ (referencia en $c$).
+- **Fuente $v_2$:** $6~\mathrm{V}$ (la guía indica $5~\mathrm{V}$; el grupo
+  usó $6~\mathrm{V}$ en preinforme, simulación y montaje).
+- **Resistores medidos (Tabla I):** $R_1=666~\Omega$, $R_2=989~\Omega$,
+  $R_3=1949~\Omega$ (1 % de tolerancia; los tres quedan levemente por debajo
+  de su banda). Con estos valores la teoría da $i_1=4.523$ mA,
+  $i_2=-0.520$ mA, $v_b=4.987$ V y $v_c=-1.013$ V.
+- **Montaje, referencia en $d$:** $v_a=8.00$, $v_b=4.99$, $v_c=-0.69$ V
+  (lectura confirmada, tratada como atípica), $i_1=4.82$ mA (primera medida,
+  confirmada y tratada como atípica), $i_2=-0.51$ mA.
+- **Montaje, referencia en $c$:** $v_a=9.00$, $v_b=5.99$, $v_d=1.00$ V,
+  $i_1=4.51$ mA, $i_2=-0.55$ mA (signo corregido por puntas invertidas).
+- **Simulación:** esquemáticos con el símbolo de tierra visible en `img/esquematico_ref_d.png`
+  y `img/esquematico_ref_c.png` (copias en `Informe/Simulaciones`).
+
+## Estructura según la guía
+
+- Tabla I: "Valores medidos de resistencia" + Figura 1 (foto resistores).
+- Figura 3: esquemático y punto de operación con referencia en $d$ en una sola figura.
+- Tabla II: "Voltajes de nodo y corrientes de malla -- referencia nodo d"
+  (preinforme, simulación, montaje).
+- Sección VIII: LVK y LCK con datos medidos (numeral 4).
+- Tabla III: "Voltajes de nodo con diferentes referencias" (numeral 5).
 
 ## Antes de entregar
 
